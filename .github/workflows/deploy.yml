@@ -123,12 +123,15 @@ jobs:
             echo "Navigating to project directory..."
             cd ${{ secrets.VPS_DEPLOY_PATH }}
 
-            # Pastikan berkas di VPS terupdate (mengambil docker-compose.yml terbaru)
-            if [ -d .git ]; then
-              echo "Pulling latest code changes on VPS..."
-              git fetch origin main
-              git reset --hard origin/main
+            echo "Ensuring repository and docker-compose.yml are present on VPS..."
+            if [ ! -d .git ]; then
+              git init
+              git remote add origin https://github.com/tunggulalmajid/Careplate-Family-Centric.git || true
             fi
+
+            git remote set-url origin https://github.com/tunggulalmajid/Careplate-Family-Centric.git
+            git fetch origin main
+            git checkout -f origin/main
 
             # Update .env dari GitHub Secret
             if [ "$HAS_ENV" = "true" ] && [ -n "$ENV_B64" ]; then
@@ -145,6 +148,9 @@ jobs:
 
             echo "Exporting image name..."
             export DOCKER_IMAGE="${IMAGE_REPO}:latest"
+
+            echo "Verifying docker-compose.yml..."
+            ls -la docker-compose.yml
 
             echo "Pulling latest Docker image..."
             docker compose pull app
