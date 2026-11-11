@@ -126,7 +126,7 @@ class RolePermissionSeeder extends Seeder
         $userRole->syncPermissions($userPerms);
 
         // Demo accounts use a well-known password: never create them in production unless opted in.
-        if (app()->environment('production') && ! env('SEED_DEMO_IN_PRODUCTION', false)) {
+        if (app()->environment('production') && ! config('app.seed_demo_in_production', false)) {
             return;
         }
 

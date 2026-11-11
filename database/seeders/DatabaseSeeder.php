@@ -22,7 +22,7 @@ class DatabaseSeeder extends Seeder
         ]);
 
         // Demo accounts (well-known password) and sample articles: never seed them in production unless opted in.
-        if (! app()->environment('production') || env('SEED_DEMO_IN_PRODUCTION', false)) {
+        if (! app()->environment('production') || config('app.seed_demo_in_production', false)) {
             $this->call([
                 PenggunaKeluargaSeeder::class,
                 ArtikelSeeder::class,
