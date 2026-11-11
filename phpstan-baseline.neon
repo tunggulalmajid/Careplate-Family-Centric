@@ -1,0 +1,775 @@
+parameters:
+	ignoreErrors:
+		-
+			message: '#^Cannot call method format\(\) on string\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: app/Http/Controllers/Admin/AdminArticleController.php
+
+		-
+			message: '#^Cannot call method translatedFormat\(\) on string\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: app/Http/Controllers/Admin/AdminArticleController.php
+
+		-
+			message: '#^Parameter \#1 \$callback of method Illuminate\\Pagination\\AbstractPaginator\<int,App\\Models\\Artikel\>\:\:through\(\) contains unresolvable type\.$#'
+			identifier: argument.unresolvableType
+			count: 1
+			path: app/Http/Controllers/Admin/AdminArticleController.php
+
+		-
+			message: '#^Return type of call to method Illuminate\\Pagination\\AbstractPaginator\<int,App\\Models\\Artikel\>\:\:through\(\) contains unresolvable type\.$#'
+			identifier: method.unresolvableReturnType
+			count: 1
+			path: app/Http/Controllers/Admin/AdminArticleController.php
+
+		-
+			message: '#^Using nullsafe property access "\?\-\>name" on left side of \?\? is unnecessary\. Use \-\> instead\.$#'
+			identifier: nullsafe.neverNull
+			count: 1
+			path: app/Http/Controllers/Admin/AdminArticleController.php
+
+		-
+			message: '#^Using nullsafe property access "\?\-\>name" on left side of \?\? is unnecessary\. Use \-\> instead\.$#'
+			identifier: nullsafe.neverNull
+			count: 1
+			path: app/Http/Controllers/Admin/AdminDashboardController.php
+
+		-
+			message: '#^Expression on left side of \?\? is not nullable\.$#'
+			identifier: nullCoalesce.expr
+			count: 1
+			path: app/Http/Controllers/Admin/AdminFoodController.php
+
+		-
+			message: '#^Using nullsafe property access "\?\-\>name" on left side of \?\? is unnecessary\. Use \-\> instead\.$#'
+			identifier: nullsafe.neverNull
+			count: 1
+			path: app/Http/Controllers/Admin/AdminFoodController.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$name\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Controllers/Admin/AdminUserController.php
+
+		-
+			message: '#^Using nullsafe property access "\?\-\>name" on left side of \?\? is unnecessary\. Use \-\> instead\.$#'
+			identifier: nullsafe.neverNull
+			count: 1
+			path: app/Http/Controllers/Admin/AdminUserController.php
+
+		-
+			message: '#^Expression on left side of \?\? is not nullable\.$#'
+			identifier: nullCoalesce.expr
+			count: 2
+			path: app/Http/Controllers/Admin/AdminVerificationController.php
+
+		-
+			message: '#^Parameter \#1 \$item of method App\\Http\\Controllers\\Admin\\AdminVerificationController\:\:transformFoodItem\(\) expects App\\Models\\Makanan, App\\Models\\Makanan\|Illuminate\\Database\\Eloquent\\Collection\<int, App\\Models\\Makanan\> given\.$#'
+			identifier: argument.type
+			count: 2
+			path: app/Http/Controllers/Admin/AdminVerificationController.php
+
+		-
+			message: '#^Using nullsafe property access "\?\-\>name" on left side of \?\? is unnecessary\. Use \-\> instead\.$#'
+			identifier: nullsafe.neverNull
+			count: 2
+			path: app/Http/Controllers/Admin/AdminVerificationController.php
+
+		-
+			message: '#^Parameter \#1 \$user of class Illuminate\\Auth\\Events\\Verified constructor expects Illuminate\\Contracts\\Auth\\MustVerifyEmail, App\\Models\\User\|null given\.$#'
+			identifier: argument.type
+			count: 1
+			path: app/Http/Controllers/Auth/VerifyEmailController.php
+
+		-
+			message: '#^Access to an undefined property App\\Models\\Konsultasi\|Illuminate\\Database\\Eloquent\\Collection\<int, App\\Models\\Konsultasi\>\:\:\$alasan_penolakan\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Controllers/Nutritionist/NutritionistConsultationController.php
+
+		-
+			message: '#^Access to an undefined property App\\Models\\Konsultasi\|Illuminate\\Database\\Eloquent\\Collection\<int, App\\Models\\Konsultasi\>\:\:\$created_at\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Controllers/Nutritionist/NutritionistConsultationController.php
+
+		-
+			message: '#^Access to an undefined property App\\Models\\Konsultasi\|Illuminate\\Database\\Eloquent\\Collection\<int, App\\Models\\Konsultasi\>\:\:\$id\.$#'
+			identifier: property.notFound
+			count: 2
+			path: app/Http/Controllers/Nutritionist/NutritionistConsultationController.php
+
+		-
+			message: '#^Access to an undefined property App\\Models\\Konsultasi\|Illuminate\\Database\\Eloquent\\Collection\<int, App\\Models\\Konsultasi\>\:\:\$keluhan\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Controllers/Nutritionist/NutritionistConsultationController.php
+
+		-
+			message: '#^Access to an undefined property App\\Models\\Konsultasi\|Illuminate\\Database\\Eloquent\\Collection\<int, App\\Models\\Konsultasi\>\:\:\$nama_pasien\.$#'
+			identifier: property.notFound
+			count: 3
+			path: app/Http/Controllers/Nutritionist/NutritionistConsultationController.php
+
+		-
+			message: '#^Access to an undefined property App\\Models\\Konsultasi\|Illuminate\\Database\\Eloquent\\Collection\<int, App\\Models\\Konsultasi\>\:\:\$nomor_konsultasi\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Controllers/Nutritionist/NutritionistConsultationController.php
+
+		-
+			message: '#^Access to an undefined property App\\Models\\Konsultasi\|Illuminate\\Database\\Eloquent\\Collection\<int, App\\Models\\Konsultasi\>\:\:\$pesan\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Controllers/Nutritionist/NutritionistConsultationController.php
+
+		-
+			message: '#^Access to an undefined property App\\Models\\Konsultasi\|Illuminate\\Database\\Eloquent\\Collection\<int, App\\Models\\Konsultasi\>\:\:\$status\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Controllers/Nutritionist/NutritionistConsultationController.php
+
+		-
+			message: '#^Access to an undefined property App\\Models\\Konsultasi\|Illuminate\\Database\\Eloquent\\Collection\<int, App\\Models\\Konsultasi\>\:\:\$topik\.$#'
+			identifier: property.notFound
+			count: 2
+			path: app/Http/Controllers/Nutritionist/NutritionistConsultationController.php
+
+		-
+			message: '#^Access to an undefined property App\\Models\\Konsultasi\|Illuminate\\Database\\Eloquent\\Collection\<int, App\\Models\\Konsultasi\>\:\:\$usia_pasien\.$#'
+			identifier: property.notFound
+			count: 2
+			path: app/Http/Controllers/Nutritionist/NutritionistConsultationController.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$created_at\.$#'
+			identifier: property.notFound
+			count: 3
+			path: app/Http/Controllers/Nutritionist/NutritionistConsultationController.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$id\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Controllers/Nutritionist/NutritionistConsultationController.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$metadata\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Controllers/Nutritionist/NutritionistConsultationController.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$pesan\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Controllers/Nutritionist/NutritionistConsultationController.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$sender_id\.$#'
+			identifier: property.notFound
+			count: 2
+			path: app/Http/Controllers/Nutritionist/NutritionistConsultationController.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$tipe_pesan\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Controllers/Nutritionist/NutritionistConsultationController.php
+
+		-
+			message: '#^Parameter \#1 \$callback of method Illuminate\\Database\\Eloquent\\Collection\<int,Illuminate\\Database\\Eloquent\\Model\>\:\:map\(\) contains unresolvable type\.$#'
+			identifier: argument.unresolvableType
+			count: 1
+			path: app/Http/Controllers/Nutritionist/NutritionistConsultationController.php
+
+		-
+			message: '#^Return type of call to method Illuminate\\Database\\Eloquent\\Collection\<int,Illuminate\\Database\\Eloquent\\Model\>\:\:map\(\) contains unresolvable type\.$#'
+			identifier: method.unresolvableReturnType
+			count: 1
+			path: app/Http/Controllers/Nutritionist/NutritionistConsultationController.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$created_at\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Controllers/Nutritionist/NutritionistDashboardController.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$metadata\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Controllers/Nutritionist/NutritionistDashboardController.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$pesan\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Controllers/Nutritionist/NutritionistDashboardController.php
+
+		-
+			message: '#^Parameter \#1 \$callback of method Illuminate\\Database\\Eloquent\\Collection\<int,App\\Models\\Konsultasi\>\:\:map\(\) contains unresolvable type\.$#'
+			identifier: argument.unresolvableType
+			count: 1
+			path: app/Http/Controllers/Nutritionist/NutritionistDashboardController.php
+
+		-
+			message: '#^Return type of call to method Illuminate\\Database\\Eloquent\\Collection\<int,App\\Models\\Konsultasi\>\:\:map\(\) contains unresolvable type\.$#'
+			identifier: method.unresolvableReturnType
+			count: 1
+			path: app/Http/Controllers/Nutritionist/NutritionistDashboardController.php
+
+		-
+			message: '#^Using nullsafe property access "\?\-\>metadata" on left side of \?\? is unnecessary\. Use \-\> instead\.$#'
+			identifier: nullsafe.neverNull
+			count: 1
+			path: app/Http/Controllers/Nutritionist/NutritionistDashboardController.php
+
+		-
+			message: '#^Access to an undefined property App\\Models\\Bmi\:\:\$kategori_bmi\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Controllers/User/UserConsultationController.php
+
+		-
+			message: '#^Access to an undefined property App\\Models\\Bmi\:\:\$skor_bmi\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Controllers/User/UserConsultationController.php
+
+		-
+			message: '#^Access to an undefined property App\\Models\\KebutuhanKalori\:\:\$total_kalori_harian\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Controllers/User/UserConsultationController.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$created_at\.$#'
+			identifier: property.notFound
+			count: 3
+			path: app/Http/Controllers/User/UserConsultationController.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$id\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Controllers/User/UserConsultationController.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$metadata\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Controllers/User/UserConsultationController.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$pesan\.$#'
+			identifier: property.notFound
+			count: 2
+			path: app/Http/Controllers/User/UserConsultationController.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$sender_id\.$#'
+			identifier: property.notFound
+			count: 2
+			path: app/Http/Controllers/User/UserConsultationController.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$tipe_pesan\.$#'
+			identifier: property.notFound
+			count: 2
+			path: app/Http/Controllers/User/UserConsultationController.php
+
+		-
+			message: '#^Parameter \#1 \$callback of method Illuminate\\Database\\Eloquent\\Collection\<int,App\\Models\\Konsultasi\>\:\:map\(\) contains unresolvable type\.$#'
+			identifier: argument.unresolvableType
+			count: 1
+			path: app/Http/Controllers/User/UserConsultationController.php
+
+		-
+			message: '#^Parameter \#1 \$callback of method Illuminate\\Database\\Eloquent\\Collection\<int,Illuminate\\Database\\Eloquent\\Model\>\:\:map\(\) contains unresolvable type\.$#'
+			identifier: argument.unresolvableType
+			count: 1
+			path: app/Http/Controllers/User/UserConsultationController.php
+
+		-
+			message: '#^Return type of call to method Illuminate\\Database\\Eloquent\\Collection\<int,App\\Models\\Konsultasi\>\:\:map\(\) contains unresolvable type\.$#'
+			identifier: method.unresolvableReturnType
+			count: 1
+			path: app/Http/Controllers/User/UserConsultationController.php
+
+		-
+			message: '#^Return type of call to method Illuminate\\Database\\Eloquent\\Collection\<int,Illuminate\\Database\\Eloquent\\Model\>\:\:map\(\) contains unresolvable type\.$#'
+			identifier: method.unresolvableReturnType
+			count: 1
+			path: app/Http/Controllers/User/UserConsultationController.php
+
+		-
+			message: '#^Using nullsafe property access "\?\-\>jenis_kelamin" on left side of \?\? is unnecessary\. Use \-\> instead\.$#'
+			identifier: nullsafe.neverNull
+			count: 1
+			path: app/Http/Controllers/User/UserConsultationController.php
+
+		-
+			message: '#^Using nullsafe property access "\?\-\>total_kalori_harian" on left side of \?\? is unnecessary\. Use \-\> instead\.$#'
+			identifier: nullsafe.neverNull
+			count: 1
+			path: app/Http/Controllers/User/UserConsultationController.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$id\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Controllers/User/UserDashboardController.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$kalori\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Controllers/User/UserDashboardController.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$keluarga\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Controllers/User/UserDashboardController.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$keluarga_id\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Controllers/User/UserDashboardController.php
+
+		-
+			message: '#^Using nullsafe property access "\?\-\>kalori" on left side of \?\? is unnecessary\. Use \-\> instead\.$#'
+			identifier: nullsafe.neverNull
+			count: 1
+			path: app/Http/Controllers/User/UserDashboardController.php
+
+		-
+			message: '#^Access to an undefined property App\\Models\\Makanan\:\:\$kategori\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Controllers/User/UserFamilyController.php
+
+		-
+			message: '#^Access to an undefined property App\\Models\\Makanan\:\:\$nama_makanan\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Controllers/User/UserFamilyController.php
+
+		-
+			message: '#^Access to an undefined property App\\Models\\Pengguna\|Illuminate\\Database\\Eloquent\\Collection\<int, App\\Models\\Pengguna\>\:\:\$user\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Controllers/User/UserFamilyController.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$keluarga\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Controllers/User/UserFamilyController.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$keluarga_id\.$#'
+			identifier: property.notFound
+			count: 3
+			path: app/Http/Controllers/User/UserFamilyController.php
+
+		-
+			message: '#^Expression on left side of \?\? is not nullable\.$#'
+			identifier: nullCoalesce.expr
+			count: 6
+			path: app/Http/Controllers/User/UserFamilyController.php
+
+		-
+			message: '#^Parameter \#1 \$callback of method Illuminate\\Database\\Eloquent\\Collection\<int,App\\Models\\PelacakanMakanan\>\:\:map\(\) contains unresolvable type\.$#'
+			identifier: argument.unresolvableType
+			count: 1
+			path: app/Http/Controllers/User/UserFamilyController.php
+
+		-
+			message: '#^Parameter \#1 \$callback of method Illuminate\\Database\\Eloquent\\Collection\<int,App\\Models\\Pengguna\>\:\:map\(\) contains unresolvable type\.$#'
+			identifier: argument.unresolvableType
+			count: 1
+			path: app/Http/Controllers/User/UserFamilyController.php
+
+		-
+			message: '#^Return type of call to method Illuminate\\Database\\Eloquent\\Collection\<int,App\\Models\\PelacakanMakanan\>\:\:map\(\) contains unresolvable type\.$#'
+			identifier: method.unresolvableReturnType
+			count: 1
+			path: app/Http/Controllers/User/UserFamilyController.php
+
+		-
+			message: '#^Return type of call to method Illuminate\\Database\\Eloquent\\Collection\<int,App\\Models\\Pengguna\>\:\:map\(\) contains unresolvable type\.$#'
+			identifier: method.unresolvableReturnType
+			count: 1
+			path: app/Http/Controllers/User/UserFamilyController.php
+
+		-
+			message: '#^Using nullsafe property access "\?\-\>kategori" on left side of \?\? is unnecessary\. Use \-\> instead\.$#'
+			identifier: nullsafe.neverNull
+			count: 1
+			path: app/Http/Controllers/User/UserFamilyController.php
+
+		-
+			message: '#^Using nullsafe property access "\?\-\>nama_makanan" on left side of \?\? is unnecessary\. Use \-\> instead\.$#'
+			identifier: nullsafe.neverNull
+			count: 1
+			path: app/Http/Controllers/User/UserFamilyController.php
+
+		-
+			message: '#^Using nullsafe property access "\?\-\>name" on left side of \?\? is unnecessary\. Use \-\> instead\.$#'
+			identifier: nullsafe.neverNull
+			count: 4
+			path: app/Http/Controllers/User/UserFamilyController.php
+
+		-
+			message: '#^Class App\\Models\\AhliGizi uses generic trait Illuminate\\Database\\Eloquent\\Factories\\HasFactory but does not specify its types\: TFactory$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/AhliGizi.php
+
+		-
+			message: '#^Method App\\Models\\AhliGizi\:\:konsultasi\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\HasMany does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/AhliGizi.php
+
+		-
+			message: '#^Method App\\Models\\AhliGizi\:\:user\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\BelongsTo does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/AhliGizi.php
+
+		-
+			message: '#^Cannot call method translatedFormat\(\) on Carbon\\Carbon\|string\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: app/Models/Artikel.php
+
+		-
+			message: '#^Class App\\Models\\Artikel uses generic trait Illuminate\\Database\\Eloquent\\Factories\\HasFactory but does not specify its types\: TFactory$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/Artikel.php
+
+		-
+			message: '#^Method App\\Models\\Artikel\:\:penulis\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\BelongsTo does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/Artikel.php
+
+		-
+			message: '#^Class App\\Models\\Bmi uses generic trait Illuminate\\Database\\Eloquent\\Factories\\HasFactory but does not specify its types\: TFactory$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/Bmi.php
+
+		-
+			message: '#^Method App\\Models\\Bmi\:\:pengguna\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\BelongsTo does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/Bmi.php
+
+		-
+			message: '#^Class App\\Models\\KategoriArtikel uses generic trait Illuminate\\Database\\Eloquent\\Factories\\HasFactory but does not specify its types\: TFactory$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/KategoriArtikel.php
+
+		-
+			message: '#^Method App\\Models\\KategoriArtikel\:\:artikels\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\HasMany does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/KategoriArtikel.php
+
+		-
+			message: '#^Class App\\Models\\KategoriMakanan uses generic trait Illuminate\\Database\\Eloquent\\Factories\\HasFactory but does not specify its types\: TFactory$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/KategoriMakanan.php
+
+		-
+			message: '#^Method App\\Models\\KategoriMakanan\:\:makanan\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\HasMany does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/KategoriMakanan.php
+
+		-
+			message: '#^Class App\\Models\\KebutuhanKalori uses generic trait Illuminate\\Database\\Eloquent\\Factories\\HasFactory but does not specify its types\: TFactory$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/KebutuhanKalori.php
+
+		-
+			message: '#^Method App\\Models\\KebutuhanKalori\:\:pengguna\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\BelongsTo does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/KebutuhanKalori.php
+
+		-
+			message: '#^Class App\\Models\\Keluarga uses generic trait Illuminate\\Database\\Eloquent\\Factories\\HasFactory but does not specify its types\: TFactory$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/Keluarga.php
+
+		-
+			message: '#^Method App\\Models\\Keluarga\:\:anggota\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\HasMany does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/Keluarga.php
+
+		-
+			message: '#^Method App\\Models\\Keluarga\:\:kepalaKeluarga\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\BelongsTo does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/Keluarga.php
+
+		-
+			message: '#^Class App\\Models\\Konsultasi uses generic trait Illuminate\\Database\\Eloquent\\Factories\\HasFactory but does not specify its types\: TFactory$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/Konsultasi.php
+
+		-
+			message: '#^Method App\\Models\\Konsultasi\:\:ahliGizi\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\BelongsTo does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/Konsultasi.php
+
+		-
+			message: '#^Method App\\Models\\Konsultasi\:\:pesan\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\HasMany does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/Konsultasi.php
+
+		-
+			message: '#^Method App\\Models\\Konsultasi\:\:user\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\BelongsTo does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/Konsultasi.php
+
+		-
+			message: '#^Class App\\Models\\Makanan uses generic trait Illuminate\\Database\\Eloquent\\Factories\\HasFactory but does not specify its types\: TFactory$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/Makanan.php
+
+		-
+			message: '#^Method App\\Models\\Makanan\:\:kategoriMakanan\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\BelongsTo does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/Makanan.php
+
+		-
+			message: '#^Method App\\Models\\Makanan\:\:pelacakanMakanan\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\HasMany does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/Makanan.php
+
+		-
+			message: '#^Method App\\Models\\Makanan\:\:pengaju\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\BelongsTo does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/Makanan.php
+
+		-
+			message: '#^Method App\\Models\\Makanan\:\:scopeCari\(\) has parameter \$query with generic class Illuminate\\Database\\Eloquent\\Builder but does not specify its types\: TModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/Makanan.php
+
+		-
+			message: '#^Method App\\Models\\Makanan\:\:scopeCari\(\) return type with generic class Illuminate\\Database\\Eloquent\\Builder does not specify its types\: TModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/Makanan.php
+
+		-
+			message: '#^Method App\\Models\\Makanan\:\:scopeKategori\(\) has parameter \$query with generic class Illuminate\\Database\\Eloquent\\Builder but does not specify its types\: TModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/Makanan.php
+
+		-
+			message: '#^Method App\\Models\\Makanan\:\:scopeKategori\(\) return type with generic class Illuminate\\Database\\Eloquent\\Builder does not specify its types\: TModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/Makanan.php
+
+		-
+			message: '#^Method App\\Models\\Makanan\:\:verifikator\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\BelongsTo does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/Makanan.php
+
+		-
+			message: '#^Class App\\Models\\PelacakanMakanan uses generic trait Illuminate\\Database\\Eloquent\\Factories\\HasFactory but does not specify its types\: TFactory$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/PelacakanMakanan.php
+
+		-
+			message: '#^Method App\\Models\\PelacakanMakanan\:\:makanan\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\BelongsTo does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/PelacakanMakanan.php
+
+		-
+			message: '#^Method App\\Models\\PelacakanMakanan\:\:pengguna\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\BelongsTo does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/PelacakanMakanan.php
+
+		-
+			message: '#^Method App\\Models\\PelacakanMakanan\:\:scopeHariIni\(\) has parameter \$query with generic class Illuminate\\Database\\Eloquent\\Builder but does not specify its types\: TModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/PelacakanMakanan.php
+
+		-
+			message: '#^Method App\\Models\\PelacakanMakanan\:\:scopeHariIni\(\) return type with generic class Illuminate\\Database\\Eloquent\\Builder does not specify its types\: TModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/PelacakanMakanan.php
+
+		-
+			message: '#^Method App\\Models\\PelacakanMakanan\:\:scopeTanggal\(\) has parameter \$query with generic class Illuminate\\Database\\Eloquent\\Builder but does not specify its types\: TModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/PelacakanMakanan.php
+
+		-
+			message: '#^Method App\\Models\\PelacakanMakanan\:\:scopeTanggal\(\) return type with generic class Illuminate\\Database\\Eloquent\\Builder does not specify its types\: TModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/PelacakanMakanan.php
+
+		-
+			message: '#^Class App\\Models\\Pengguna uses generic trait Illuminate\\Database\\Eloquent\\Factories\\HasFactory but does not specify its types\: TFactory$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/Pengguna.php
+
+		-
+			message: '#^Method App\\Models\\Pengguna\:\:bmiHistori\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\HasMany does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/Pengguna.php
+
+		-
+			message: '#^Method App\\Models\\Pengguna\:\:kebutuhanKaloriHistori\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\HasMany does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/Pengguna.php
+
+		-
+			message: '#^Method App\\Models\\Pengguna\:\:keluarga\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\BelongsTo does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/Pengguna.php
+
+		-
+			message: '#^Method App\\Models\\Pengguna\:\:keluargaDipimpin\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\HasOne does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/Pengguna.php
+
+		-
+			message: '#^Method App\\Models\\Pengguna\:\:pelacakanMakanan\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\HasMany does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/Pengguna.php
+
+		-
+			message: '#^Method App\\Models\\Pengguna\:\:user\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\BelongsTo does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/Pengguna.php
+
+		-
+			message: '#^Class App\\Models\\PesanKonsultasi uses generic trait Illuminate\\Database\\Eloquent\\Factories\\HasFactory but does not specify its types\: TFactory$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/PesanKonsultasi.php
+
+		-
+			message: '#^Method App\\Models\\PesanKonsultasi\:\:konsultasi\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\BelongsTo does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/PesanKonsultasi.php
+
+		-
+			message: '#^Method App\\Models\\PesanKonsultasi\:\:sender\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\BelongsTo does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/PesanKonsultasi.php
+
+		-
+			message: '#^Method App\\Models\\User\:\:ahliGizi\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\HasOne does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/User.php
+
+		-
+			message: '#^Method App\\Models\\User\:\:artikels\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\HasMany does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/User.php
+
+		-
+			message: '#^Method App\\Models\\User\:\:konsultasiSebagaiKlien\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\HasMany does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/User.php
+
+		-
+			message: '#^Method App\\Models\\User\:\:pengguna\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\HasOne does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/User.php
+
+		-
+			message: '#^Method App\\Models\\User\:\:pesanKonsultasi\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\HasMany does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/User.php
+
+		-
+			message: '#^Call to an undefined method Illuminate\\Database\\Schema\\ForeignKeyDefinition\:\:comment\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: database/migrations/2026_11_11_012501_create_pengguna_table.php
+
+		-
+			message: '#^Call to an undefined method Illuminate\\Database\\Schema\\ForeignKeyDefinition\:\:comment\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: database/migrations/2026_11_11_012545_create_keluarga_table.php
+
+		-
+			message: '#^Call to an undefined method Illuminate\\Database\\Schema\\ForeignKeyDefinition\:\:comment\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: database/migrations/2026_11_11_075120_create_ahli_gizi_table.php
+
+		-
+			message: '#^Call to an undefined method Illuminate\\Database\\Schema\\ForeignKeyDefinition\:\:comment\(\)\.$#'
+			identifier: method.notFound
+			count: 2
+			path: database/migrations/2026_11_11_160000_create_konsultasi_tables.php
+
+		-
+			message: '#^Using nullsafe property access "\?\-\>id" on left side of \?\? is unnecessary\. Use \-\> instead\.$#'
+			identifier: nullsafe.neverNull
+			count: 24
+			path: database/seeders/MakananSeeder.php
+
+		-
+			message: '#^Call to function method_exists\(\) with App\\Models\\User and ''hasRole'' will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 2
+			path: database/seeders/PenggunaKeluargaSeeder.php
