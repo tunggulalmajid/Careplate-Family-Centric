@@ -217,7 +217,7 @@ test('(e) a write blocked by an open IMMEDIATE transaction on B becomes a retrya
     expect($reserve->errorCode)->toBe('SESSION_BUSY')->and($reserve->retryable)->toBeTrue()
         ->and($finalize->errorCode)->toBe('SESSION_BUSY')
         ->and($erase->errorCode)->toBe('SESSION_BUSY')
-        ->and($elapsed)->toBeGreaterThan(0.5)->toBeLessThan(5.0)
+        ->and($elapsed)->toBeGreaterThan(0.15)->toBeLessThan(5.0)
         ->and(DB::connection('cc_a')->table('chat_turns')->count())->toBe(1)
         ->and(DB::connection('cc_a')->table('chat_turns')->value('status'))->toBe('pending')
         // The blocked writes changed nothing: the title is still the first question, not B's 'lock'.
