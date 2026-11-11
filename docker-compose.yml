@@ -8,21 +8,11 @@ services:
         restart: unless-stopped
         ports:
             - '127.0.0.1:${APP_PORT:-8001}:80'
+        env_file:
+            - .env
         environment:
-            APP_NAME: '${APP_NAME:-CarePlate}'
-            APP_ENV: '${APP_ENV:-production}'
-            APP_KEY: '${APP_KEY}'
-            APP_DEBUG: '${APP_DEBUG:-false}'
-            APP_URL: '${APP_URL:-http://localhost}'
-            DB_CONNECTION: mysql
             DB_HOST: db
             DB_PORT: 3306
-            DB_DATABASE: '${DB_DATABASE:-careplate}'
-            DB_USERNAME: '${DB_USERNAME:-careplate_user}'
-            DB_PASSWORD: '${DB_PASSWORD:-careplate_password}'
-            CACHE_STORE: '${CACHE_STORE:-redis}'
-            SESSION_DRIVER: '${SESSION_DRIVER:-redis}'
-            QUEUE_CONNECTION: '${QUEUE_CONNECTION:-redis}'
             REDIS_HOST: redis
             REDIS_PORT: 6379
         volumes:

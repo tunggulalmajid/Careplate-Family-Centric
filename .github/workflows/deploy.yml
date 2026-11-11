@@ -168,8 +168,8 @@ jobs:
               sleep 2
             done
 
-            echo "Running database migrations..."
-            docker compose exec -T app php artisan migrate --force
+            echo "Running database migrations and seeders..."
+            docker compose exec -T app php artisan migrate --force --seed
 
             echo "Optimizing application caches..."
             docker compose exec -T app php artisan optimize
