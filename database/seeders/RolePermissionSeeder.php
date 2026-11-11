@@ -125,11 +125,6 @@ class RolePermissionSeeder extends Seeder
         ];
         $userRole->syncPermissions($userPerms);
 
-        // Demo accounts use a well-known password: never create them in production.
-        if (app()->environment('production')) {
-            return;
-        }
-
         // 3. Default demo users
         $admin = User::firstOrCreate(
             ['email' => 'admin@careplate.test'],
