@@ -46,7 +46,7 @@ const scenes = [
     <section id="ahli-gizi" class="bg-white py-24">
         <div class="mx-auto max-w-[1440px] px-4 sm:px-6 lg:px-8">
             <!-- Section Header -->
-            <div class="mx-auto mb-16 max-w-3xl text-center">
+            <div data-reveal class="mx-auto mb-16 max-w-3xl text-center">
                 <h2
                     class="font-display text-4xl font-bold tracking-tight text-[#191919] sm:text-5xl lg:text-[54px]"
                 >
@@ -56,18 +56,20 @@ const scenes = [
 
             <!-- 3 Scene Cards Grid -->
             <div
+                data-reveal-group
                 class="mx-auto grid max-w-6xl grid-cols-1 gap-8 md:grid-cols-3"
             >
                 <div
                     v-for="scene in scenes"
                     :key="scene.id"
+                    data-market-scene
                     class="flex flex-col justify-between rounded-[28px] p-5 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg sm:p-6"
                     :class="scene.cardBg"
                 >
                     <!-- Top Image in Rounded Frame -->
                     <div>
                         <div
-                            class="mb-5 h-60 w-full overflow-hidden rounded-2xl bg-white shadow-xs"
+                            class="mb-5 h-60 w-full overflow-hidden rounded-lg bg-white shadow-xs sm:rounded"
                         >
                             <img
                                 :src="scene.image"
@@ -103,7 +105,7 @@ const scenes = [
                     <div class="pt-2">
                         <a
                             :href="scene.linkHref"
-                            class="group inline-flex items-center gap-1.5 text-sm font-bold text-[#0b8043] transition-colors"
+                            class="group inline-flex min-h-11 items-center gap-1.5 text-sm font-bold text-[#0b8043] transition-colors"
                             :class="scene.linkHover"
                         >
                             <span>{{ scene.linkText }}</span>

@@ -17,6 +17,7 @@ const activeFilter = ref('semua');
         <div class="mx-auto max-w-[1440px] px-4 sm:px-6 lg:px-8">
             <!-- Header -->
             <div
+                data-reveal
                 class="mb-14 flex flex-col justify-between gap-4 sm:flex-row sm:items-center"
             >
                 <div>
@@ -33,7 +34,7 @@ const activeFilter = ref('semua');
                 </div>
                 <a
                     href="#bacaan"
-                    class="group inline-flex items-center gap-2 text-sm font-bold text-[#0b8043] transition-colors hover:text-[#086637]"
+                    class="group inline-flex min-h-11 items-center gap-2 text-sm font-bold text-[#0b8043] transition-colors hover:text-[#086637]"
                 >
                     <span>Lihat semua artikel</span>
                     <ArrowRight
@@ -45,17 +46,13 @@ const activeFilter = ref('semua');
             <!-- Category Circles Row -->
             <div class="relative">
                 <div
-                    class="flex scrollbar-none items-center justify-center gap-4 overflow-x-auto px-2 py-6 sm:gap-6 lg:gap-10"
+                    data-reveal-group
+                    class="flex flex-wrap items-start justify-center gap-4 px-2 py-6 sm:gap-6 lg:gap-10"
                 >
                     <div
                         v-for="cat in articleCategories"
                         :key="cat.id"
-                        class="group flex cursor-pointer flex-col items-center text-center transition-all duration-300"
-                        :class="
-                            cat.isFeatured
-                                ? 'z-10 scale-105 sm:scale-110'
-                                : 'hover:scale-105'
-                        "
+                        class="group flex flex-col items-center text-center"
                     >
                         <!-- Photo / Visual Circle -->
                         <div
@@ -75,9 +72,7 @@ const activeFilter = ref('semua');
                                     class="h-8 w-8 opacity-90 drop-shadow"
                                 />
                                 <div v-else class="p-2 text-center">
-                                    <Sparkles
-                                        class="mx-auto mb-1 h-6 w-6 animate-pulse"
-                                    />
+                                    <Sparkles class="mx-auto mb-1 h-6 w-6" />
                                     <span
                                         class="block text-[11px] font-bold tracking-wider uppercase sm:text-xs"
                                         >Spesial</span
@@ -99,7 +94,7 @@ const activeFilter = ref('semua');
                                 {{ cat.name }}
                             </h3>
                             <p
-                                class="mt-0.5 line-clamp-1 text-xs font-medium text-[#5e5e5e]"
+                                class="mt-0.5 text-xs font-medium text-[#5e5e5e]"
                             >
                                 {{ cat.tag }}
                             </p>

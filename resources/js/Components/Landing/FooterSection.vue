@@ -9,6 +9,7 @@ import { UtensilsCrossed, Heart } from 'lucide-vue-next';
     >
         <div class="mx-auto max-w-[1440px] px-4 sm:px-6 lg:px-8">
             <div
+                data-reveal-group
                 class="grid grid-cols-1 gap-10 border-b border-white/10 pb-12 md:grid-cols-2 lg:grid-cols-5"
             >
                 <!-- Brand Column -->

@@ -93,7 +93,7 @@ const tiles = [
                 class="grid grid-cols-1 items-center gap-12 lg:grid-cols-12 lg:gap-16"
             >
                 <!-- Left Column: Copy & Action -->
-                <div class="space-y-6 lg:col-span-5">
+                <div data-reveal-group class="space-y-6 lg:col-span-5">
                     <h2
                         class="font-display text-4xl leading-[1.15] font-bold tracking-tight text-[#191919] sm:text-5xl lg:text-[54px]"
                     >
@@ -120,12 +120,15 @@ const tiles = [
 
                 <!-- Right Column: 8 Feature Tiles (2 cols x 4 rows) with Green Border & White Card Background -->
                 <div class="lg:col-span-7">
-                    <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                    <div
+                        data-reveal-group
+                        class="grid grid-cols-1 gap-4 sm:grid-cols-2"
+                    >
                         <a
                             v-for="tile in tiles"
                             :key="tile.id"
                             :href="tile.href"
-                            class="group flex items-center justify-between rounded-2xl border-[1.5px] border-[#0b8043] bg-white p-3.5 shadow-xs transition-all duration-200 hover:bg-[#e4f6ea]/30 hover:shadow-md sm:p-4"
+                            class="group flex items-center justify-between rounded-[28px] border-[1.5px] border-[#0b8043] bg-white p-3.5 shadow-xs transition-all duration-200 hover:bg-[#e4f6ea]/30 hover:shadow-md sm:p-4"
                         >
                             <div class="flex items-center gap-3.5">
                                 <div
