@@ -1,0 +1,123 @@
+name: Deploy to Production (CI/CD)
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  build-and-push:
+    name: Build & Push Docker Image
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Log in to GitHub Container Registry (GHCR)
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Set lower case repository name
+        id: repo_name
+        run: |
+          echo "IMAGE=ghcr.io/${GITHUB_REPOSITORY,,}" >> $GITHUB_OUTPUT
+
+      - name: Extract Docker metadata
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: ${{ steps.repo_name.outputs.IMAGE }}
+          tags: |
+            type=raw,value=latest
+            type=sha,format=short
+
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
+  deploy:
+    name: Deploy to VPS
+    needs: build-and-push
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Prepare .env file
+        id: env_prep
+        env:
+          RAW_ENV: ${{ secrets.ENV_FILE }}
+        run: |
+          if [ -n "$RAW_ENV" ]; then
+            ENV_B64=$(printf '%s' "$RAW_ENV" | base64 -w 0)
+            echo "b64=${ENV_B64}" >> $GITHUB_OUTPUT
+            echo "has_env=true" >> $GITHUB_OUTPUT
+          else
+            echo "has_env=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Deploy via SSH
+        uses: appleboy/ssh-action@v1.0.3
+        env:
+          ENV_B64: ${{ steps.env_prep.outputs.b64 }}
+          HAS_ENV: ${{ steps.env_prep.outputs.has_env }}
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USERNAME }}
+          key: ${{ secrets.VPS_SSH_KEY }}
+          port: ${{ secrets.VPS_PORT || 22 }}
+          envs: ENV_B64,HAS_ENV
+          script: |
+            set -e
+
+            echo "Navigating to project directory..."
+            cd ${{ secrets.VPS_DEPLOY_PATH }}
+
+            # Update .env from GitHub Secret if provided
+            if [ "$HAS_ENV" = "true" ] && [ -n "$ENV_B64" ]; then
+              echo "Synchronizing .env from GitHub Secrets..."
+              echo "$ENV_B64" | base64 -d > .env
+              chmod 600 .env
+            fi
+
+            # Normalize image name to lowercase
+            IMAGE_REPO=$(echo "ghcr.io/${{ github.repository }}" | tr '[:upper:]' '[:lower:]')
+
+            echo "Logging in to GitHub Container Registry on VPS..."
+            echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
+
+            echo "Exporting image name..."
+            export DOCKER_IMAGE="${IMAGE_REPO}:latest"
+
+            echo "Pulling latest Docker image..."
+            docker compose pull app
+
+            echo "Restarting containers..."
+            docker compose up -d
+
+            echo "Waiting for services to be ready..."
+            sleep 5
+
+            echo "Running database migrations..."
+            docker compose exec -T app php artisan migrate --force
+
+            echo "Optimizing application caches..."
+            docker compose exec -T app php artisan optimize
+
+            echo "Cleaning up dangling images..."
+            docker image prune -f
+
+            echo "✅ Deployment finished successfully!"
