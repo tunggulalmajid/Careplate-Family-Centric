@@ -97,8 +97,8 @@ class Konsultasi extends Model
      */
     public static function generateNomor(): string
     {
-        $prefix = 'KNS-' . date('Ym') . '-';
-        $latest = static::where('nomor_konsultasi', 'like', $prefix . '%')
+        $prefix = 'KNS-'.date('Ym').'-';
+        $latest = static::where('nomor_konsultasi', 'like', $prefix.'%')
             ->orderByDesc('id')
             ->value('nomor_konsultasi');
 
@@ -109,6 +109,6 @@ class Konsultasi extends Model
             $nextNumber = '0001';
         }
 
-        return $prefix . $nextNumber;
+        return $prefix.$nextNumber;
     }
 }

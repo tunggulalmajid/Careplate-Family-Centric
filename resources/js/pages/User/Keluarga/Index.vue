@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { ref } from "vue";
-import { Head, Link, router } from "@inertiajs/vue3";
-import UserLayout from "@/Layouts/UserLayout.vue";
+import { ref } from 'vue';
+import { Head, Link, router } from '@inertiajs/vue3';
+import UserLayout from '@/Layouts/UserLayout.vue';
 import {
     Users,
     Copy,
@@ -18,7 +18,7 @@ import {
     ChevronUp,
     AlertCircle,
     Info,
-} from "lucide-vue-next";
+} from 'lucide-vue-next';
 
 interface WeeklyDot {
     label: string;
@@ -100,17 +100,17 @@ const toggleMemberAccordion = (id: number) => {
 };
 
 const confirmLeaveGroup = () => {
-    if (confirm("Apakah kamu yakin ingin keluar dari grup keluarga ini?")) {
-        router.post(route("user.family.leave"));
+    if (confirm('Apakah kamu yakin ingin keluar dari grup keluarga ini?')) {
+        router.post(route('user.family.leave'));
     }
 };
 
 const formatWaktu = (waktu: string) => {
     const map: Record<string, string> = {
-        sarapan: "Sarapan",
-        makan_siang: "Makan Siang",
-        makan_malam: "Makan Malam",
-        camilan: "Camilan",
+        sarapan: 'Sarapan',
+        makan_siang: 'Makan Siang',
+        makan_malam: 'Makan Malam',
+        camilan: 'Camilan',
     };
     return map[waktu] || waktu;
 };
@@ -123,24 +123,37 @@ const formatWaktu = (waktu: string) => {
         <div class="space-y-8 pb-16">
             <!-- 1. Header Meja Keluarga (Figma 19:4004) -->
             <div
-                class="relative overflow-hidden rounded-3xl bg-[#fff2eb] dark:bg-[#261f1c] border border-orange-100/70 dark:border-[#3d2c26] p-6 sm:p-8 md:p-10 transition-colors shadow-xs"
+                class="relative overflow-hidden rounded-3xl border border-orange-100/70 bg-[#fff2eb] p-6 shadow-xs transition-colors sm:p-8 md:p-10 dark:border-[#3d2c26] dark:bg-[#261f1c]"
             >
-                <div class="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-6">
+                <div
+                    class="relative z-10 flex flex-col justify-between gap-6 md:flex-row md:items-center"
+                >
                     <div class="space-y-2">
-                        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-white/80 dark:bg-[#333] text-gray-700 dark:text-gray-300">
-                            <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
-                            <span>{{ isKepalaKeluarga ? "Kamu Kepala Keluarga" : `Kepala: ${keluarga.kepala_keluarga_nama}` }}</span>
+                        <div
+                            class="inline-flex items-center gap-2 rounded-full bg-white/80 px-3 py-1 text-xs font-semibold text-gray-700 dark:bg-[#333] dark:text-gray-300"
+                        >
+                            <span
+                                class="h-2 w-2 rounded-full bg-emerald-500"
+                            ></span>
+                            <span>{{
+                                isKepalaKeluarga
+                                    ? 'Kamu Kepala Keluarga'
+                                    : `Kepala: ${keluarga.kepala_keluarga_nama}`
+                            }}</span>
                             <span>•</span>
                             <span>{{ totalAnggota }} Anggota</span>
                         </div>
 
                         <h1
-                            class="font-display text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-[#191919] dark:text-[#f0efea]"
+                            class="font-display text-3xl font-extrabold tracking-tight text-[#191919] sm:text-4xl md:text-5xl dark:text-[#f0efea]"
                         >
                             {{ keluarga.nama_keluarga }}
                         </h1>
-                        <p class="text-xs sm:text-sm text-gray-600 dark:text-[#a3a3a3]">
-                            Saling memantau kebiasaan sehat dan aktivitas gizi keluarga setiap hari.
+                        <p
+                            class="text-xs text-gray-600 sm:text-sm dark:text-[#a3a3a3]"
+                        >
+                            Saling memantau kebiasaan sehat dan aktivitas gizi
+                            keluarga setiap hari.
                         </p>
                     </div>
 
@@ -148,20 +161,27 @@ const formatWaktu = (waktu: string) => {
                     <div class="flex flex-wrap items-center gap-3">
                         <!-- Kode Grup Badge -->
                         <div
-                            class="flex items-center gap-2 px-4 py-2.5 rounded-2xl bg-white dark:bg-[#1c1c1c] border border-gray-200 dark:border-[#2e2e2e] shadow-2xs text-xs"
+                            class="flex items-center gap-2 rounded-2xl border border-gray-200 bg-white px-4 py-2.5 text-xs shadow-2xs dark:border-[#2e2e2e] dark:bg-[#1c1c1c]"
                         >
-                            <span class="text-gray-400 dark:text-[#737373]">Kode:</span>
-                            <span class="font-mono font-bold text-sm tracking-wider text-gray-900 dark:text-[#f0efea]">
+                            <span class="text-gray-400 dark:text-[#737373]"
+                                >Kode:</span
+                            >
+                            <span
+                                class="font-mono text-sm font-bold tracking-wider text-gray-900 dark:text-[#f0efea]"
+                            >
                                 {{ keluarga.kode_keluarga }}
                             </span>
                             <button
                                 type="button"
                                 @click="copyCode"
-                                class="p-1 rounded-lg text-gray-400 hover:text-gray-700 dark:hover:text-[#f0efea] hover:bg-gray-100 dark:hover:bg-[#262626] transition cursor-pointer"
+                                class="cursor-pointer rounded-lg p-1 text-gray-400 transition hover:bg-gray-100 hover:text-gray-700 dark:hover:bg-[#262626] dark:hover:text-[#f0efea]"
                                 title="Salin kode keluarga"
                             >
-                                <Check v-if="copiedCode" class="w-4 h-4 text-emerald-500" />
-                                <Copy v-else class="w-4 h-4" />
+                                <Check
+                                    v-if="copiedCode"
+                                    class="h-4 w-4 text-emerald-500"
+                                />
+                                <Copy v-else class="h-4 w-4" />
                             </button>
                         </div>
 
@@ -169,20 +189,30 @@ const formatWaktu = (waktu: string) => {
                         <button
                             type="button"
                             @click="copyLink"
-                            class="px-4 py-2.5 rounded-2xl bg-white dark:bg-[#1c1c1c] border border-gray-200 dark:border-[#2e2e2e] text-xs font-semibold text-gray-700 dark:text-[#f0efea] hover:bg-gray-50 dark:hover:bg-[#262626] shadow-2xs transition flex items-center gap-1.5 cursor-pointer"
+                            class="flex cursor-pointer items-center gap-1.5 rounded-2xl border border-gray-200 bg-white px-4 py-2.5 text-xs font-semibold text-gray-700 shadow-2xs transition hover:bg-gray-50 dark:border-[#2e2e2e] dark:bg-[#1c1c1c] dark:text-[#f0efea] dark:hover:bg-[#262626]"
                         >
-                            <Check v-if="copiedLink" class="w-4 h-4 text-emerald-500" />
-                            <Share2 v-else class="w-4 h-4 text-[#0b8043] dark:text-[#3fcb7a]" />
-                            <span>{{ copiedLink ? "Tautan Disalin!" : "Salin Link Undangan" }}</span>
+                            <Check
+                                v-if="copiedLink"
+                                class="h-4 w-4 text-emerald-500"
+                            />
+                            <Share2
+                                v-else
+                                class="h-4 w-4 text-[#0b8043] dark:text-[#3fcb7a]"
+                            />
+                            <span>{{
+                                copiedLink
+                                    ? 'Tautan Disalin!'
+                                    : 'Salin Link Undangan'
+                            }}</span>
                         </button>
 
                         <!-- Tombol Kelola Grup (Khusus Kepala Keluarga) -->
                         <Link
                             v-if="isKepalaKeluarga"
                             :href="route('user.family.manage')"
-                            class="px-4 py-2.5 rounded-2xl bg-[#0b8043] dark:bg-[#3fcb7a] text-white dark:text-[#121212] text-xs font-bold hover:bg-[#096836] dark:hover:bg-[#34aa66] shadow-xs transition flex items-center gap-1.5 cursor-pointer"
+                            class="flex cursor-pointer items-center gap-1.5 rounded-2xl bg-[#0b8043] px-4 py-2.5 text-xs font-bold text-white shadow-xs transition hover:bg-[#096836] dark:bg-[#3fcb7a] dark:text-[#121212] dark:hover:bg-[#34aa66]"
                         >
-                            <Settings class="w-4 h-4" />
+                            <Settings class="h-4 w-4" />
                             <span>Kelola Grup</span>
                         </Link>
 
@@ -191,85 +221,129 @@ const formatWaktu = (waktu: string) => {
                             v-else
                             type="button"
                             @click="confirmLeaveGroup"
-                            class="px-4 py-2.5 rounded-2xl bg-white dark:bg-[#1c1c1c] border border-red-200 dark:border-red-900/50 text-xs font-semibold text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-950/30 transition flex items-center gap-1.5 cursor-pointer"
+                            class="flex cursor-pointer items-center gap-1.5 rounded-2xl border border-red-200 bg-white px-4 py-2.5 text-xs font-semibold text-red-600 transition hover:bg-red-50 dark:border-red-900/50 dark:bg-[#1c1c1c] dark:text-red-400 dark:hover:bg-red-950/30"
                         >
-                            <LogOut class="w-4 h-4" />
+                            <LogOut class="h-4 w-4" />
                             <span>Keluar Grup</span>
                         </button>
                     </div>
                 </div>
             </div>
 
-            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+            <div class="grid grid-cols-1 items-start gap-8 lg:grid-cols-12">
                 <!-- 2. Left Column: Tabel Meja Keluarga Mingguan (Figma 19:4009) -->
-                <div class="lg:col-span-7 space-y-6">
+                <div class="space-y-6 lg:col-span-7">
                     <div
-                        class="bg-white dark:bg-[#1c1c1c] border border-gray-100 dark:border-[#2e2e2e] rounded-3xl p-6 sm:p-8 shadow-xs space-y-6"
+                        class="space-y-6 rounded-3xl border border-gray-100 bg-white p-6 shadow-xs sm:p-8 dark:border-[#2e2e2e] dark:bg-[#1c1c1c]"
                     >
                         <!-- Card Header & Progress -->
-                        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                        <div
+                            class="flex flex-col justify-between gap-4 sm:flex-row sm:items-center"
+                        >
                             <div>
-                                <h2 class="text-lg sm:text-xl font-bold text-gray-900 dark:text-[#f0efea]">
+                                <h2
+                                    class="text-lg font-bold text-gray-900 sm:text-xl dark:text-[#f0efea]"
+                                >
                                     Meja Keluarga • {{ periodeMinggu }}
                                 </h2>
-                                <p class="text-xs sm:text-sm text-gray-500 dark:text-[#a3a3a3] mt-0.5">
-                                    Target bersama: masing-masing mencatat 5 hari dalam seminggu.
+                                <p
+                                    class="mt-0.5 text-xs text-gray-500 sm:text-sm dark:text-[#a3a3a3]"
+                                >
+                                    Target bersama: masing-masing mencatat 5
+                                    hari dalam seminggu.
                                 </p>
                             </div>
 
-                            <div class="text-right shrink-0">
-                                <span class="text-2xl font-black text-[#0b8043] dark:text-[#3fcb7a]">
-                                    {{ targetTercapaiCount }} dari {{ totalAnggota }}
+                            <div class="shrink-0 text-right">
+                                <span
+                                    class="text-2xl font-black text-[#0b8043] dark:text-[#3fcb7a]"
+                                >
+                                    {{ targetTercapaiCount }} dari
+                                    {{ totalAnggota }}
                                 </span>
-                                <span class="block text-[11px] text-gray-400 dark:text-[#737373]">
+                                <span
+                                    class="block text-[11px] text-gray-400 dark:text-[#737373]"
+                                >
                                     mencapai 5 hari
                                 </span>
                             </div>
                         </div>
 
                         <!-- Progress Bar -->
-                        <div class="w-full bg-gray-100 dark:bg-[#262626] rounded-full h-3 overflow-hidden">
+                        <div
+                            class="h-3 w-full overflow-hidden rounded-full bg-gray-100 dark:bg-[#262626]"
+                        >
                             <div
-                                class="bg-[#0b8043] dark:bg-[#3fcb7a] h-full rounded-full transition-all duration-500"
-                                :style="{ width: `${totalAnggota > 0 ? (targetTercapaiCount / totalAnggota) * 100 : 0}%` }"
+                                class="h-full rounded-full bg-[#0b8043] transition-all duration-500 dark:bg-[#3fcb7a]"
+                                :style="{
+                                    width: `${totalAnggota > 0 ? (targetTercapaiCount / totalAnggota) * 100 : 0}%`,
+                                }"
                             ></div>
                         </div>
 
                         <!-- Weekly Grid Table -->
-                        <div class="overflow-x-auto no-scrollbar pt-2">
-                            <table class="w-full text-left border-collapse min-w-[540px]">
+                        <div class="no-scrollbar overflow-x-auto pt-2">
+                            <table
+                                class="w-full min-w-[540px] border-collapse text-left"
+                            >
                                 <thead>
-                                    <tr class="border-b border-gray-100 dark:border-[#262626] text-xs font-semibold text-gray-400 dark:text-[#737373]">
-                                        <th class="py-3 px-2">Anggota</th>
-                                        <th class="py-3 px-2 text-center w-10">Sn</th>
-                                        <th class="py-3 px-2 text-center w-10">Sl</th>
-                                        <th class="py-3 px-2 text-center w-10">Rb</th>
-                                        <th class="py-3 px-2 text-center w-10">Km</th>
-                                        <th class="py-3 px-2 text-center w-10">Jm</th>
-                                        <th class="py-3 px-2 text-center w-10">Sb</th>
-                                        <th class="py-3 px-2 text-center w-10">Mg</th>
-                                        <th class="py-3 px-2 text-right">Total</th>
+                                    <tr
+                                        class="border-b border-gray-100 text-xs font-semibold text-gray-400 dark:border-[#262626] dark:text-[#737373]"
+                                    >
+                                        <th class="px-2 py-3">Anggota</th>
+                                        <th class="w-10 px-2 py-3 text-center">
+                                            Sn
+                                        </th>
+                                        <th class="w-10 px-2 py-3 text-center">
+                                            Sl
+                                        </th>
+                                        <th class="w-10 px-2 py-3 text-center">
+                                            Rb
+                                        </th>
+                                        <th class="w-10 px-2 py-3 text-center">
+                                            Km
+                                        </th>
+                                        <th class="w-10 px-2 py-3 text-center">
+                                            Jm
+                                        </th>
+                                        <th class="w-10 px-2 py-3 text-center">
+                                            Sb
+                                        </th>
+                                        <th class="w-10 px-2 py-3 text-center">
+                                            Mg
+                                        </th>
+                                        <th class="px-2 py-3 text-right">
+                                            Total
+                                        </th>
                                     </tr>
                                 </thead>
-                                <tbody class="divide-y divide-gray-50 dark:divide-[#262626]">
+                                <tbody
+                                    class="divide-y divide-gray-50 dark:divide-[#262626]"
+                                >
                                     <tr
                                         v-for="member in anggotaList"
                                         :key="member.id"
-                                        class="hover:bg-gray-50/50 dark:hover:bg-[#222] transition-colors"
+                                        class="transition-colors hover:bg-gray-50/50 dark:hover:bg-[#222]"
                                     >
                                         <!-- Member Profile Info -->
-                                        <td class="py-3.5 px-2">
-                                            <div class="flex items-center gap-3">
+                                        <td class="px-2 py-3.5">
+                                            <div
+                                                class="flex items-center gap-3"
+                                            >
                                                 <div
-                                                    class="w-9 h-9 rounded-full bg-emerald-100 dark:bg-[#17321f] text-[#0b8043] dark:text-[#3fcb7a] font-bold text-xs flex items-center justify-center shrink-0 border border-emerald-200/50 dark:border-[#2e2e2e]"
+                                                    class="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-emerald-200/50 bg-emerald-100 text-xs font-bold text-[#0b8043] dark:border-[#2e2e2e] dark:bg-[#17321f] dark:text-[#3fcb7a]"
                                                 >
                                                     {{ member.initials }}
                                                 </div>
                                                 <div class="min-w-0">
-                                                    <div class="text-sm font-bold text-gray-900 dark:text-[#f0efea] truncate">
+                                                    <div
+                                                        class="truncate text-sm font-bold text-gray-900 dark:text-[#f0efea]"
+                                                    >
                                                         {{ member.name }}
                                                     </div>
-                                                    <div class="text-[11px] text-gray-400 dark:text-[#737373]">
+                                                    <div
+                                                        class="text-[11px] text-gray-400 dark:text-[#737373]"
+                                                    >
                                                         {{ member.role_label }}
                                                     </div>
                                                 </div>
@@ -280,44 +354,50 @@ const formatWaktu = (waktu: string) => {
                                         <td
                                             v-for="dot in member.weekly_dots"
                                             :key="dot.date"
-                                            class="py-3.5 px-2 text-center"
+                                            class="px-2 py-3.5 text-center"
                                         >
-                                            <div class="flex items-center justify-center">
+                                            <div
+                                                class="flex items-center justify-center"
+                                            >
                                                 <!-- Logged dot -->
                                                 <div
                                                     v-if="dot.logged"
-                                                    class="w-6 h-6 rounded-full bg-[#0b8043] dark:bg-[#3fcb7a] text-white dark:text-[#121212] flex items-center justify-center shadow-2xs"
+                                                    class="flex h-6 w-6 items-center justify-center rounded-full bg-[#0b8043] text-white shadow-2xs dark:bg-[#3fcb7a] dark:text-[#121212]"
                                                     title="Mencatat makanan"
                                                 >
-                                                    <Check class="w-3.5 h-3.5 stroke-[3]" />
+                                                    <Check
+                                                        class="h-3.5 w-3.5 stroke-[3]"
+                                                    />
                                                 </div>
 
                                                 <!-- Unlogged dot for today -->
                                                 <div
                                                     v-else-if="dot.is_today"
-                                                    class="w-6 h-6 rounded-full border-2 border-dashed border-[#0b8043] dark:border-[#3fcb7a] bg-emerald-50/40 dark:bg-[#17321f]/20"
+                                                    class="h-6 w-6 rounded-full border-2 border-dashed border-[#0b8043] bg-emerald-50/40 dark:border-[#3fcb7a] dark:bg-[#17321f]/20"
                                                     title="Belum mencatat hari ini"
                                                 ></div>
 
                                                 <!-- Future / past empty dot -->
                                                 <div
                                                     v-else
-                                                    class="w-5 h-5 rounded-full bg-gray-100 dark:bg-[#262626] border border-gray-200/60 dark:border-[#333]"
+                                                    class="h-5 w-5 rounded-full border border-gray-200/60 bg-gray-100 dark:border-[#333] dark:bg-[#262626]"
                                                 ></div>
                                             </div>
                                         </td>
 
                                         <!-- Total Days Badge -->
-                                        <td class="py-3.5 px-2 text-right">
+                                        <td class="px-2 py-3.5 text-right">
                                             <span
-                                                class="inline-block px-2.5 py-1 rounded-full text-xs font-bold"
+                                                class="inline-block rounded-full px-2.5 py-1 text-xs font-bold"
                                                 :class="
                                                     member.target_tercapai
                                                         ? 'bg-emerald-100 text-[#0b8043] dark:bg-[#17321f] dark:text-[#3fcb7a]'
                                                         : 'bg-gray-100 text-gray-600 dark:bg-[#262626] dark:text-[#a3a3a3]'
                                                 "
                                             >
-                                                {{ member.total_hari_minggu_ini }}/5 hari
+                                                {{
+                                                    member.total_hari_minggu_ini
+                                                }}/5 hari
                                             </span>
                                         </td>
                                     </tr>
@@ -326,28 +406,42 @@ const formatWaktu = (waktu: string) => {
                         </div>
 
                         <!-- Reset notice note -->
-                        <div class="p-3.5 rounded-2xl bg-gray-50 dark:bg-[#262626] border border-gray-100 dark:border-[#2e2e2e] flex items-center gap-2.5 text-xs text-gray-500 dark:text-[#a3a3a3]">
-                            <Info class="w-4 h-4 text-[#0b8043] dark:text-[#3fcb7a] shrink-0" />
-                            <span>Aktivitas meja keluarga dihitung per minggu berjalan dan otomatis ter-reset setiap hari Senin.</span>
+                        <div
+                            class="flex items-center gap-2.5 rounded-2xl border border-gray-100 bg-gray-50 p-3.5 text-xs text-gray-500 dark:border-[#2e2e2e] dark:bg-[#262626] dark:text-[#a3a3a3]"
+                        >
+                            <Info
+                                class="h-4 w-4 shrink-0 text-[#0b8043] dark:text-[#3fcb7a]"
+                            />
+                            <span
+                                >Aktivitas meja keluarga dihitung per minggu
+                                berjalan dan otomatis ter-reset setiap hari
+                                Senin.</span
+                            >
                         </div>
                     </div>
                 </div>
 
                 <!-- 3. Right Column: Aktivitas Makanan & Kalori Hari Ini (Permintaan Spesifik User) -->
-                <div class="lg:col-span-5 space-y-6">
+                <div class="space-y-6 lg:col-span-5">
                     <div
-                        class="bg-white dark:bg-[#1c1c1c] border border-gray-100 dark:border-[#2e2e2e] rounded-3xl p-6 sm:p-8 shadow-xs space-y-5"
+                        class="space-y-5 rounded-3xl border border-gray-100 bg-white p-6 shadow-xs sm:p-8 dark:border-[#2e2e2e] dark:bg-[#1c1c1c]"
                     >
                         <div class="flex items-center justify-between">
                             <div class="flex items-center gap-2.5">
-                                <div class="w-8 h-8 rounded-xl bg-orange-100/70 dark:bg-[#3a261c] text-[#eb4416] dark:text-[#ff7a4d] flex items-center justify-center">
-                                    <Utensils class="w-4 h-4" />
+                                <div
+                                    class="flex h-8 w-8 items-center justify-center rounded-xl bg-orange-100/70 text-[#eb4416] dark:bg-[#3a261c] dark:text-[#ff7a4d]"
+                                >
+                                    <Utensils class="h-4 w-4" />
                                 </div>
-                                <h3 class="text-base font-bold text-gray-900 dark:text-[#f0efea]">
+                                <h3
+                                    class="text-base font-bold text-gray-900 dark:text-[#f0efea]"
+                                >
                                     Aktivitas Makan Hari Ini
                                 </h3>
                             </div>
-                            <span class="text-xs font-medium text-gray-400 dark:text-[#737373]">
+                            <span
+                                class="text-xs font-medium text-gray-400 dark:text-[#737373]"
+                            >
                                 Hari ini
                             </span>
                         </div>
@@ -357,42 +451,69 @@ const formatWaktu = (waktu: string) => {
                             <div
                                 v-for="member in anggotaList"
                                 :key="member.id"
-                                class="border border-gray-100 dark:border-[#2e2e2e] rounded-2xl overflow-hidden transition-all"
+                                class="overflow-hidden rounded-2xl border border-gray-100 transition-all dark:border-[#2e2e2e]"
                             >
                                 <!-- Accordion Header -->
                                 <button
                                     type="button"
                                     @click="toggleMemberAccordion(member.id)"
-                                    class="w-full p-4 flex items-center justify-between text-left hover:bg-gray-50/80 dark:hover:bg-[#262626] transition-colors cursor-pointer"
+                                    class="flex w-full cursor-pointer items-center justify-between p-4 text-left transition-colors hover:bg-gray-50/80 dark:hover:bg-[#262626]"
                                 >
                                     <div class="flex items-center gap-3">
                                         <div
-                                            class="w-8 h-8 rounded-full bg-emerald-50 dark:bg-[#17321f] text-[#0b8043] dark:text-[#3fcb7a] font-bold text-xs flex items-center justify-center shrink-0"
+                                            class="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-emerald-50 text-xs font-bold text-[#0b8043] dark:bg-[#17321f] dark:text-[#3fcb7a]"
                                         >
                                             {{ member.initials }}
                                         </div>
                                         <div>
-                                            <div class="text-sm font-bold text-gray-900 dark:text-[#f0efea]">
+                                            <div
+                                                class="text-sm font-bold text-gray-900 dark:text-[#f0efea]"
+                                            >
                                                 {{ member.name }}
                                             </div>
-                                            <div class="text-[11px] text-gray-400 dark:text-[#737373]">
-                                                {{ member.catatan_hari_ini.length }} makanan tercatat
+                                            <div
+                                                class="text-[11px] text-gray-400 dark:text-[#737373]"
+                                            >
+                                                {{
+                                                    member.catatan_hari_ini
+                                                        .length
+                                                }}
+                                                makanan tercatat
                                             </div>
                                         </div>
                                     </div>
 
                                     <div class="flex items-center gap-3">
                                         <div class="text-right">
-                                            <div class="text-xs font-extrabold text-[#0b8043] dark:text-[#3fcb7a]">
-                                                {{ Math.round(member.total_kalori_hari_ini) }} kkal
+                                            <div
+                                                class="text-xs font-extrabold text-[#0b8043] dark:text-[#3fcb7a]"
+                                            >
+                                                {{
+                                                    Math.round(
+                                                        member.total_kalori_hari_ini,
+                                                    )
+                                                }}
+                                                kkal
                                             </div>
-                                            <div class="text-[10px] text-gray-400 dark:text-[#737373]">
-                                                dari {{ Math.round(member.target_kalori_harian) }} kkal
+                                            <div
+                                                class="text-[10px] text-gray-400 dark:text-[#737373]"
+                                            >
+                                                dari
+                                                {{
+                                                    Math.round(
+                                                        member.target_kalori_harian,
+                                                    )
+                                                }}
+                                                kkal
                                             </div>
                                         </div>
                                         <component
-                                            :is="expandedMemberId === member.id ? ChevronUp : ChevronDown"
-                                            class="w-4 h-4 text-gray-400"
+                                            :is="
+                                                expandedMemberId === member.id
+                                                    ? ChevronUp
+                                                    : ChevronDown
+                                            "
+                                            class="h-4 w-4 text-gray-400"
                                         />
                                     </div>
                                 </button>
@@ -400,27 +521,43 @@ const formatWaktu = (waktu: string) => {
                                 <!-- Accordion Body: Rincian Makanan -->
                                 <div
                                     v-if="expandedMemberId === member.id"
-                                    class="p-4 bg-gray-50/50 dark:bg-[#171717] border-t border-gray-100 dark:border-[#2e2e2e] space-y-3"
+                                    class="space-y-3 border-t border-gray-100 bg-gray-50/50 p-4 dark:border-[#2e2e2e] dark:bg-[#171717]"
                                 >
-                                    <div v-if="member.catatan_hari_ini.length === 0" class="text-xs text-gray-400 dark:text-[#737373] text-center py-2">
+                                    <div
+                                        v-if="
+                                            member.catatan_hari_ini.length === 0
+                                        "
+                                        class="py-2 text-center text-xs text-gray-400 dark:text-[#737373]"
+                                    >
                                         Belum ada makanan yang dicatat hari ini.
                                     </div>
 
                                     <div
                                         v-for="item in member.catatan_hari_ini"
                                         :key="item.id"
-                                        class="flex items-center justify-between text-xs py-1.5 border-b border-gray-100 dark:border-[#262626] last:border-0"
+                                        class="flex items-center justify-between border-b border-gray-100 py-1.5 text-xs last:border-0 dark:border-[#262626]"
                                     >
                                         <div class="min-w-0 pr-2">
-                                            <span class="inline-block px-1.5 py-0.5 rounded text-[10px] font-semibold bg-gray-200 dark:bg-[#262626] text-gray-700 dark:text-gray-300 mr-1.5">
-                                                {{ formatWaktu(item.waktu_konsumsi) }}
+                                            <span
+                                                class="mr-1.5 inline-block rounded bg-gray-200 px-1.5 py-0.5 text-[10px] font-semibold text-gray-700 dark:bg-[#262626] dark:text-gray-300"
+                                            >
+                                                {{
+                                                    formatWaktu(
+                                                        item.waktu_konsumsi,
+                                                    )
+                                                }}
                                             </span>
-                                            <span class="font-medium text-gray-800 dark:text-[#f0efea]">
+                                            <span
+                                                class="font-medium text-gray-800 dark:text-[#f0efea]"
+                                            >
                                                 {{ item.nama_makanan }}
                                             </span>
                                         </div>
-                                        <div class="font-bold text-[#0b8043] dark:text-[#3fcb7a] shrink-0">
-                                            {{ Math.round(item.total_kalori) }} kkal
+                                        <div
+                                            class="shrink-0 font-bold text-[#0b8043] dark:text-[#3fcb7a]"
+                                        >
+                                            {{ Math.round(item.total_kalori) }}
+                                            kkal
                                         </div>
                                     </div>
                                 </div>

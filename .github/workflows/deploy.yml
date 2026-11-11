@@ -1,12 +1,46 @@
-name: Deploy to Production (CI/CD)
+name: CI/CD Pipeline (CI -> Build Docker -> Deploy VPS)
 
 on:
   push:
     branches: [ main ]
+  workflow_dispatch:
 
 jobs:
-  build-and-push:
-    name: Build & Push Docker Image
+  # ==============================================================================
+  # 1. CI CHECKS (Jika gagal, pipeline langsung BERHENTI di sini)
+  # ==============================================================================
+  ci:
+    name: 1. CI Checks
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.3'
+          tools: composer:v2
+          coverage: none
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Setup Application
+        run: composer setup
+
+      - name: Run CI Checks (Formatter, Types, Tests)
+        run: composer ci:check
+
+  # ==============================================================================
+  # 2. BUILD DOCKER (Hanya jalan jika CI lolos. Jika gagal, deploy tidak dijalankan)
+  # ==============================================================================
+  build-docker:
+    name: 2. Build & Push Docker Image
+    needs: [ ci ]
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -50,9 +84,12 @@ jobs:
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
-  deploy:
-    name: Deploy to VPS
-    needs: build-and-push
+  # ==============================================================================
+  # 3. DEPLOY VPS (Hanya jalan jika Build Docker berhasil 100%)
+  # ==============================================================================
+  deploy-vps:
+    name: 3. Deploy to VPS
+    needs: [ build-docker ]
     runs-on: ubuntu-latest
 
     steps:
@@ -86,7 +123,14 @@ jobs:
             echo "Navigating to project directory..."
             cd ${{ secrets.VPS_DEPLOY_PATH }}
 
-            # Update .env from GitHub Secret if provided
+            # Pastikan berkas di VPS terupdate (mengambil docker-compose.yml terbaru)
+            if [ -d .git ]; then
+              echo "Pulling latest code changes on VPS..."
+              git fetch origin main
+              git reset --hard origin/main
+            fi
+
+            # Update .env dari GitHub Secret
             if [ "$HAS_ENV" = "true" ] && [ -n "$ENV_B64" ]; then
               echo "Synchronizing .env from GitHub Secrets..."
               echo "$ENV_B64" | base64 -d > .env

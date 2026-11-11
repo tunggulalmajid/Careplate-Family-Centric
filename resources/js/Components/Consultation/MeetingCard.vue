@@ -21,25 +21,44 @@ defineProps<{
                 : 'border-emerald-200 bg-[#f0fbf4] text-gray-900 dark:border-emerald-800 dark:bg-[#13231a] dark:text-[#f0efea]'
         "
     >
-        <div class="flex items-center gap-2 font-bold text-emerald-800 dark:text-emerald-400">
-            <div class="flex h-8 w-8 items-center justify-center rounded-lg bg-emerald-600 text-white shadow-2xs">
+        <div
+            class="flex items-center gap-2 font-bold text-emerald-800 dark:text-emerald-400"
+        >
+            <div
+                class="flex h-8 w-8 items-center justify-center rounded-lg bg-emerald-600 text-white shadow-2xs"
+            >
                 <Video class="h-4 w-4" />
             </div>
             <span class="text-sm">Jadwal Sesi Tatap Muka Online</span>
         </div>
 
         <div class="mt-3 space-y-1.5 text-xs">
-            <div class="flex items-center gap-2 text-gray-700 dark:text-gray-300">
-                <Calendar class="h-3.5 w-3.5 text-emerald-600 dark:text-emerald-400" />
-                <span class="font-medium">{{ metadata.tanggal || 'Sesuai Kesepakatan' }}</span>
+            <div
+                class="flex items-center gap-2 text-gray-700 dark:text-gray-300"
+            >
+                <Calendar
+                    class="h-3.5 w-3.5 text-emerald-600 dark:text-emerald-400"
+                />
+                <span class="font-medium">{{
+                    metadata.tanggal || 'Sesuai Kesepakatan'
+                }}</span>
             </div>
-            <div class="flex items-center gap-2 text-gray-700 dark:text-gray-300">
-                <Clock class="h-3.5 w-3.5 text-emerald-600 dark:text-emerald-400" />
-                <span>{{ metadata.mulai || '19.00' }} WIB (Durasi: {{ metadata.durasi || '30 mnt' }})</span>
+            <div
+                class="flex items-center gap-2 text-gray-700 dark:text-gray-300"
+            >
+                <Clock
+                    class="h-3.5 w-3.5 text-emerald-600 dark:text-emerald-400"
+                />
+                <span
+                    >{{ metadata.mulai || '19.00' }} WIB (Durasi:
+                    {{ metadata.durasi || '30 mnt' }})</span
+                >
             </div>
         </div>
 
-        <div class="mt-4 pt-3 border-t border-emerald-200/80 dark:border-emerald-800/80">
+        <div
+            class="mt-4 border-t border-emerald-200/80 pt-3 dark:border-emerald-800/80"
+        >
             <a
                 v-if="metadata.link"
                 :href="metadata.link"
@@ -51,7 +70,7 @@ defineProps<{
                 <span>Gabung Meeting</span>
                 <ExternalLink class="h-3 w-3 opacity-80" />
             </a>
-            <div v-else class="text-center text-xs italic text-gray-400">
+            <div v-else class="text-center text-xs text-gray-400 italic">
                 Tautan meeting belum disertakan.
             </div>
         </div>

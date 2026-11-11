@@ -44,16 +44,22 @@ const handleSubmit = () => {
 
         <!-- Modal Content -->
         <div
-            class="relative w-full max-w-lg rounded-3xl border border-gray-100 bg-white p-6 shadow-2xl transition-all dark:border-[#262626] dark:bg-[#1a1a1a] sm:p-7"
+            class="relative w-full max-w-lg rounded-3xl border border-gray-100 bg-white p-6 shadow-2xl transition-all sm:p-7 dark:border-[#262626] dark:bg-[#1a1a1a]"
         >
             <!-- Header -->
-            <div class="flex items-center justify-between pb-4 border-b border-gray-100 dark:border-[#262626]">
+            <div
+                class="flex items-center justify-between border-b border-gray-100 pb-4 dark:border-[#262626]"
+            >
                 <div class="flex items-center gap-2.5">
-                    <div class="flex h-9 w-9 items-center justify-center rounded-xl bg-red-100 text-red-600 dark:bg-red-950/50 dark:text-red-400">
+                    <div
+                        class="flex h-9 w-9 items-center justify-center rounded-xl bg-red-100 text-red-600 dark:bg-red-950/50 dark:text-red-400"
+                    >
                         <AlertCircle class="h-5 w-5" />
                     </div>
                     <div>
-                        <h3 class="text-base font-bold text-gray-900 dark:text-[#f0efea]">
+                        <h3
+                            class="text-base font-bold text-gray-900 dark:text-[#f0efea]"
+                        >
                             Tolak Permohonan Konsultasi
                         </h3>
                         <p class="text-xs text-gray-500 dark:text-gray-400">
@@ -72,7 +78,9 @@ const handleSubmit = () => {
             <!-- Form -->
             <form @submit.prevent="handleSubmit" class="mt-5 space-y-4">
                 <div>
-                    <label class="block text-xs font-semibold text-gray-700 dark:text-gray-300">
+                    <label
+                        class="block text-xs font-semibold text-gray-700 dark:text-gray-300"
+                    >
                         Alasan Penolakan <span class="text-red-500">*</span>
                     </label>
                     <textarea
@@ -86,7 +94,9 @@ const handleSubmit = () => {
 
                 <!-- Template Reasons -->
                 <div>
-                    <span class="text-[11px] font-medium text-gray-400 dark:text-gray-500">
+                    <span
+                        class="text-[11px] font-medium text-gray-400 dark:text-gray-500"
+                    >
                         Pilihan alasan cepat:
                     </span>
                     <div class="mt-1.5 flex flex-wrap gap-1.5">
@@ -117,7 +127,10 @@ const handleSubmit = () => {
                         :disabled="loading || !alasan.trim()"
                         class="inline-flex items-center gap-2 rounded-full bg-red-600 px-6 py-2.5 text-xs font-bold text-white shadow-xs transition-colors hover:bg-red-700 disabled:opacity-50"
                     >
-                        <Loader2 v-if="loading" class="h-3.5 w-3.5 animate-spin" />
+                        <Loader2
+                            v-if="loading"
+                            class="h-3.5 w-3.5 animate-spin"
+                        />
                         <span>Tolak Permohonan</span>
                     </button>
                 </div>

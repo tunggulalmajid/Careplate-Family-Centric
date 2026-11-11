@@ -1,73 +1,83 @@
 services:
-  app:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    image: ${DOCKER_IMAGE:-careplate:latest}
-    container_name: careplate_app
-    restart: unless-stopped
-    ports:
-      - "127.0.0.1:${APP_PORT:-8001}:80"
-    environment:
-      APP_NAME: "${APP_NAME:-CarePlate}"
-      APP_ENV: "${APP_ENV:-production}"
-      APP_KEY: "${APP_KEY}"
-      APP_DEBUG: "${APP_DEBUG:-false}"
-      APP_URL: "${APP_URL:-http://localhost}"
-      DB_CONNECTION: mysql
-      DB_HOST: db
-      DB_PORT: 3306
-      DB_DATABASE: "${DB_DATABASE:-careplate}"
-      DB_USERNAME: "${DB_USERNAME:-careplate_user}"
-      DB_PASSWORD: "${DB_PASSWORD:-careplate_password}"
-      CACHE_STORE: "${CACHE_STORE:-redis}"
-      SESSION_DRIVER: "${SESSION_DRIVER:-redis}"
-      QUEUE_CONNECTION: "${QUEUE_CONNECTION:-redis}"
-      REDIS_HOST: redis
-      REDIS_PORT: 6379
-    volumes:
-      - careplate_storage:/var/www/html/storage/app/public
-    depends_on:
-      db:
-        condition: service_healthy
-      redis:
-        condition: service_started
-    networks:
-      - careplate_network
+    app:
+        build:
+            context: .
+            dockerfile: Dockerfile
+        image: ${DOCKER_IMAGE:-careplate:latest}
+        container_name: careplate_app
+        restart: unless-stopped
+        ports:
+            - '127.0.0.1:${APP_PORT:-8001}:80'
+        environment:
+            APP_NAME: '${APP_NAME:-CarePlate}'
+            APP_ENV: '${APP_ENV:-production}'
+            APP_KEY: '${APP_KEY}'
+            APP_DEBUG: '${APP_DEBUG:-false}'
+            APP_URL: '${APP_URL:-http://localhost}'
+            DB_CONNECTION: mysql
+            DB_HOST: db
+            DB_PORT: 3306
+            DB_DATABASE: '${DB_DATABASE:-careplate}'
+            DB_USERNAME: '${DB_USERNAME:-careplate_user}'
+            DB_PASSWORD: '${DB_PASSWORD:-careplate_password}'
+            CACHE_STORE: '${CACHE_STORE:-redis}'
+            SESSION_DRIVER: '${SESSION_DRIVER:-redis}'
+            QUEUE_CONNECTION: '${QUEUE_CONNECTION:-redis}'
+            REDIS_HOST: redis
+            REDIS_PORT: 6379
+        volumes:
+            - careplate_storage:/var/www/html/storage/app/public
+        depends_on:
+            db:
+                condition: service_healthy
+            redis:
+                condition: service_started
+        networks:
+            - careplate_network
 
-  db:
-    image: mysql:8.0
-    container_name: careplate_db
-    restart: unless-stopped
-    environment:
-      MYSQL_ROOT_PASSWORD: "${DB_ROOT_PASSWORD:-root_password}"
-      MYSQL_DATABASE: "${DB_DATABASE:-careplate}"
-      MYSQL_USER: "${DB_USERNAME:-careplate_user}"
-      MYSQL_PASSWORD: "${DB_PASSWORD:-careplate_password}"
-    volumes:
-      - careplate_db_data:/var/lib/mysql
-    networks:
-      - careplate_network
-    healthcheck:
-      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-p${DB_ROOT_PASSWORD:-root_password}"]
-      interval: 10s
-      timeout: 5s
-      retries: 5
+    db:
+        image: mysql:8.0
+        container_name: careplate_db
+        restart: unless-stopped
+        environment:
+            MYSQL_ROOT_PASSWORD: '${DB_ROOT_PASSWORD:-root_password}'
+            MYSQL_DATABASE: '${DB_DATABASE:-careplate}'
+            MYSQL_USER: '${DB_USERNAME:-careplate_user}'
+            MYSQL_PASSWORD: '${DB_PASSWORD:-careplate_password}'
+        volumes:
+            - careplate_db_data:/var/lib/mysql
+        networks:
+            - careplate_network
+        healthcheck:
+            test:
+                [
+                    'CMD',
+                    'mysqladmin',
+                    'ping',
+                    '-h',
+                    'localhost',
+                    '-u',
+                    'root',
+                    '-p${DB_ROOT_PASSWORD:-root_password}',
+                ]
+            interval: 10s
+            timeout: 5s
+            retries: 5
 
-  redis:
-    image: redis:alpine
-    container_name: careplate_redis
-    restart: unless-stopped
-    volumes:
-      - careplate_redis_data:/data
-    networks:
-      - careplate_network
+    redis:
+        image: redis:alpine
+        container_name: careplate_redis
+        restart: unless-stopped
+        volumes:
+            - careplate_redis_data:/data
+        networks:
+            - careplate_network
 
 volumes:
-  careplate_db_data:
-  careplate_redis_data:
-  careplate_storage:
+    careplate_db_data:
+    careplate_redis_data:
+    careplate_storage:
 
 networks:
-  careplate_network:
-    driver: bridge
+    careplate_network:
+        driver: bridge

@@ -62,7 +62,7 @@ const logout = () => {
     >
         <!-- Desktop Sidebar -->
         <aside
-            class="hidden md:flex md:w-64 flex-col bg-white dark:bg-[#1c1c1c] border-r border-gray-100 dark:border-[#2e2e2e] h-screen sticky top-0 p-5 shrink-0 justify-between overflow-y-auto custom-scrollbar transition-colors z-30"
+            class="custom-scrollbar sticky top-0 z-30 hidden h-screen shrink-0 flex-col justify-between overflow-y-auto border-r border-gray-100 bg-white p-5 transition-colors md:flex md:w-64 dark:border-[#2e2e2e] dark:bg-[#1c1c1c]"
         >
             <div>
                 <!-- Logo & Ahli Gizi Role Badge -->

@@ -26,10 +26,12 @@ const emit = defineEmits<{
 
         <!-- Modal Content -->
         <div
-            class="relative w-full max-w-md rounded-3xl border border-gray-100 bg-white p-6 shadow-2xl transition-all dark:border-[#262626] dark:bg-[#1a1a1a] sm:p-7"
+            class="relative w-full max-w-md rounded-3xl border border-gray-100 bg-white p-6 shadow-2xl transition-all sm:p-7 dark:border-[#262626] dark:bg-[#1a1a1a]"
         >
             <div class="flex items-center justify-between pb-3">
-                <div class="flex h-11 w-11 items-center justify-center rounded-2xl bg-emerald-100 text-[#0f6b36] dark:bg-emerald-950/50 dark:text-emerald-400">
+                <div
+                    class="flex h-11 w-11 items-center justify-center rounded-2xl bg-emerald-100 text-[#0f6b36] dark:bg-emerald-950/50 dark:text-emerald-400"
+                >
                     <CheckCircle2 class="h-6 w-6" />
                 </div>
                 <button
@@ -41,11 +43,20 @@ const emit = defineEmits<{
             </div>
 
             <div class="mt-3">
-                <h3 class="text-base font-bold text-gray-900 dark:text-[#f0efea]">
+                <h3
+                    class="text-base font-bold text-gray-900 dark:text-[#f0efea]"
+                >
                     Selesaikan Konsultasi?
                 </h3>
-                <p class="mt-2 text-xs leading-relaxed text-gray-500 dark:text-gray-400">
-                    Apakah Anda yakin ingin menyelesaikan sesi konsultasi dengan <strong class="text-gray-800 dark:text-gray-200">{{ clientName || 'klien' }}</strong>? Sesi akan ditandai selesai dan ruang obrolan akan ditutup.
+                <p
+                    class="mt-2 text-xs leading-relaxed text-gray-500 dark:text-gray-400"
+                >
+                    Apakah Anda yakin ingin menyelesaikan sesi konsultasi dengan
+                    <strong class="text-gray-800 dark:text-gray-200">{{
+                        clientName || 'klien'
+                    }}</strong
+                    >? Sesi akan ditandai selesai dan ruang obrolan akan
+                    ditutup.
                 </p>
             </div>
 

@@ -90,9 +90,12 @@ const switchTab = (tab: 'semua' | 'saya') => {
         {
             tab,
             q: searchQuery.value,
-            kategori: selectedKategori.value === 'Semua' ? '' : selectedKategori.value,
+            kategori:
+                selectedKategori.value === 'Semua'
+                    ? ''
+                    : selectedKategori.value,
         },
-        { preserveState: true, preserveScroll: true }
+        { preserveState: true, preserveScroll: true },
     );
 };
 
@@ -106,7 +109,7 @@ const applyFilter = (kategori: string) => {
             q: searchQuery.value,
             kategori: kategori === 'Semua' ? '' : kategori,
         },
-        { preserveState: true, preserveScroll: true }
+        { preserveState: true, preserveScroll: true },
     );
 };
 
@@ -116,9 +119,12 @@ const handleSearch = () => {
         {
             tab: currentTab.value,
             q: searchQuery.value,
-            kategori: selectedKategori.value === 'Semua' ? '' : selectedKategori.value,
+            kategori:
+                selectedKategori.value === 'Semua'
+                    ? ''
+                    : selectedKategori.value,
         },
-        { preserveState: true, preserveScroll: true }
+        { preserveState: true, preserveScroll: true },
     );
 };
 
@@ -147,22 +153,29 @@ const getInitials = (name: string) => {
     <UserLayout>
         <div class="mx-auto max-w-6xl space-y-6 pb-12">
             <!-- Header Section -->
-            <div class="flex flex-col justify-between gap-4 sm:flex-row sm:items-center">
+            <div
+                class="flex flex-col justify-between gap-4 sm:flex-row sm:items-center"
+            >
                 <div>
-                    <h1 class="text-2xl font-bold tracking-tight text-gray-900 dark:text-[#f0efea] sm:text-3xl">
+                    <h1
+                        class="text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl dark:text-[#f0efea]"
+                    >
                         Konsultasi Ahli Gizi
                     </h1>
                     <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">
-                        Dapatkan pendampingan langsung dari ahli gizi tersertifikasi untuk Anda dan keluarga.
+                        Dapatkan pendampingan langsung dari ahli gizi
+                        tersertifikasi untuk Anda dan keluarga.
                     </p>
                 </div>
             </div>
 
             <!-- Tab Switcher (Semua Ahli Gizi vs Konsultasi Saya) -->
-            <div class="flex border-b border-gray-200 text-sm font-bold dark:border-[#262626]">
+            <div
+                class="flex border-b border-gray-200 text-sm font-bold dark:border-[#262626]"
+            >
                 <button
                     @click="switchTab('semua')"
-                    class="relative pb-3.5 pr-6 transition-colors"
+                    class="relative pr-6 pb-3.5 transition-colors"
                     :class="
                         currentTab === 'semua'
                             ? 'border-b-2 border-[#0b8043] text-gray-900 dark:border-emerald-500 dark:text-[#f0efea]'
@@ -173,7 +186,7 @@ const getInitials = (name: string) => {
                 </button>
                 <button
                     @click="switchTab('saya')"
-                    class="relative pb-3.5 px-6 transition-colors"
+                    class="relative px-6 pb-3.5 transition-colors"
                     :class="
                         currentTab === 'saya'
                             ? 'border-b-2 border-[#0b8043] text-gray-900 dark:border-emerald-500 dark:text-[#f0efea]'
@@ -198,24 +211,29 @@ const getInitials = (name: string) => {
                 <div class="space-y-4">
                     <!-- Search Input -->
                     <div class="relative max-w-md">
-                        <Search class="pointer-events-none absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-400" />
+                        <Search
+                            class="pointer-events-none absolute top-1/2 left-3.5 h-4 w-4 -translate-y-1/2 text-gray-400"
+                        />
                         <input
                             v-model="searchQuery"
                             @keydown.enter="handleSearch"
                             type="text"
                             placeholder="Cari nama ahli gizi, spesialisasi, atau keluhan..."
-                            class="w-full rounded-full border border-gray-200 bg-white py-2.5 pl-10 pr-4 text-xs text-gray-900 shadow-2xs transition-colors placeholder:text-gray-400 focus:border-emerald-600 focus:outline-none dark:border-[#262626] dark:bg-[#1a1a1a] dark:text-[#f0efea]"
+                            class="w-full rounded-full border border-gray-200 bg-white py-2.5 pr-4 pl-10 text-xs text-gray-900 shadow-2xs transition-colors placeholder:text-gray-400 focus:border-emerald-600 focus:outline-none dark:border-[#262626] dark:bg-[#1a1a1a] dark:text-[#f0efea]"
                         />
                     </div>
 
                     <!-- Category Chips -->
-                    <div class="flex items-center gap-2 overflow-x-auto pb-1 custom-scrollbar">
+                    <div
+                        class="custom-scrollbar flex items-center gap-2 overflow-x-auto pb-1"
+                    >
                         <button
                             type="button"
                             @click="applyFilter('Semua')"
-                            class="rounded-full px-4 py-2 text-xs font-bold transition-all whitespace-nowrap"
+                            class="rounded-full px-4 py-2 text-xs font-bold whitespace-nowrap transition-all"
                             :class="
-                                selectedKategori === 'Semua' || !selectedKategori
+                                selectedKategori === 'Semua' ||
+                                !selectedKategori
                                     ? 'bg-gray-900 text-white shadow-xs dark:bg-emerald-600'
                                     : 'bg-[#f4f3f0] text-gray-700 hover:bg-gray-200 dark:bg-[#262626] dark:text-gray-300 dark:hover:bg-[#333]'
                             "
@@ -227,7 +245,7 @@ const getInitials = (name: string) => {
                             :key="kat"
                             type="button"
                             @click="applyFilter(kat)"
-                            class="rounded-full px-4 py-2 text-xs font-bold transition-all whitespace-nowrap"
+                            class="rounded-full px-4 py-2 text-xs font-bold whitespace-nowrap transition-all"
                             :class="
                                 selectedKategori === kat
                                     ? 'bg-gray-900 text-white shadow-xs dark:bg-emerald-600'
@@ -240,7 +258,9 @@ const getInitials = (name: string) => {
                 </div>
 
                 <!-- Nutritionists Grid Cards -->
-                <div class="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-2">
+                <div
+                    class="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-2"
+                >
                     <div
                         v-for="ag in ahli_gizi_list.data"
                         :key="ag.id"
@@ -249,45 +269,77 @@ const getInitials = (name: string) => {
                         <div>
                             <!-- Header Card: Avatar & Name -->
                             <div class="flex items-start gap-4">
-                                <div class="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-emerald-100 text-base font-extrabold text-[#0f6b36] shadow-2xs dark:bg-emerald-950/80 dark:text-emerald-300">
+                                <div
+                                    class="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-emerald-100 text-base font-extrabold text-[#0f6b36] shadow-2xs dark:bg-emerald-950/80 dark:text-emerald-300"
+                                >
                                     {{ getInitials(ag.user.name) }}
                                 </div>
                                 <div class="min-w-0 flex-1">
-                                    <h3 class="truncate text-base font-bold text-gray-900 dark:text-[#f0efea]">
+                                    <h3
+                                        class="truncate text-base font-bold text-gray-900 dark:text-[#f0efea]"
+                                    >
                                         {{ ag.user.name }}
                                     </h3>
-                                    <div class="mt-1 flex flex-wrap items-center gap-2">
-                                        <span class="inline-flex items-center gap-1 rounded-full bg-emerald-50 px-2.5 py-0.5 text-[11px] font-semibold text-emerald-700 dark:bg-emerald-950/50 dark:text-emerald-400">
+                                    <div
+                                        class="mt-1 flex flex-wrap items-center gap-2"
+                                    >
+                                        <span
+                                            class="inline-flex items-center gap-1 rounded-full bg-emerald-50 px-2.5 py-0.5 text-[11px] font-semibold text-emerald-700 dark:bg-emerald-950/50 dark:text-emerald-400"
+                                        >
                                             <Award class="h-3 w-3" />
                                             {{ ag.spesialisasi || 'Gizi Umum' }}
                                         </span>
                                     </div>
                                     <div class="mt-1 text-[11px] text-gray-400">
-                                        STR: {{ ag.nomor_str || 'Tersertifikasi' }}
+                                        STR:
+                                        {{ ag.nomor_str || 'Tersertifikasi' }}
                                     </div>
                                 </div>
                             </div>
 
                             <!-- Bio -->
-                            <p class="mt-4 line-clamp-3 text-xs leading-relaxed text-gray-600 dark:text-gray-400">
-                                {{ ag.bio || 'Praktisi gizi berpengalaman yang siap memberikan konsultasi dan meal plan personal.' }}
+                            <p
+                                class="mt-4 line-clamp-3 text-xs leading-relaxed text-gray-600 dark:text-gray-400"
+                            >
+                                {{
+                                    ag.bio ||
+                                    'Praktisi gizi berpengalaman yang siap memberikan konsultasi dan meal plan personal.'
+                                }}
                             </p>
 
                             <!-- Operational Details -->
-                            <div class="mt-4 space-y-1.5 border-t border-gray-100 pt-3 text-xs text-gray-500 dark:border-[#262626] dark:text-gray-400">
+                            <div
+                                class="mt-4 space-y-1.5 border-t border-gray-100 pt-3 text-xs text-gray-500 dark:border-[#262626] dark:text-gray-400"
+                            >
                                 <div class="flex items-center gap-2">
                                     <Clock class="h-3.5 w-3.5 text-gray-400" />
-                                    <span>{{ ag.jam_layanan || 'Senin - Sabtu, 08.00 - 16.00 WIB' }}</span>
+                                    <span>{{
+                                        ag.jam_layanan ||
+                                        'Senin - Sabtu, 08.00 - 16.00 WIB'
+                                    }}</span>
                                 </div>
                             </div>
                         </div>
 
                         <!-- Footer: Fee & Action Button -->
-                        <div class="mt-5 flex items-center justify-between border-t border-gray-100 pt-4 dark:border-[#262626]">
+                        <div
+                            class="mt-5 flex items-center justify-between border-t border-gray-100 pt-4 dark:border-[#262626]"
+                        >
                             <div>
-                                <span class="text-[10px] text-gray-400 uppercase tracking-wider block">Biaya Sesi</span>
-                                <span class="text-base font-extrabold text-gray-900 dark:text-[#f0efea]">
-                                    {{ ag.tarif_konsultasi ? formatCurrency(ag.tarif_konsultasi) : 'Gratis / Tersubsidi' }}
+                                <span
+                                    class="block text-[10px] tracking-wider text-gray-400 uppercase"
+                                    >Biaya Sesi</span
+                                >
+                                <span
+                                    class="text-base font-extrabold text-gray-900 dark:text-[#f0efea]"
+                                >
+                                    {{
+                                        ag.tarif_konsultasi
+                                            ? formatCurrency(
+                                                  ag.tarif_konsultasi,
+                                              )
+                                            : 'Gratis / Tersubsidi'
+                                    }}
                                 </span>
                             </div>
 
@@ -307,21 +359,31 @@ const getInitials = (name: string) => {
                     v-if="ahli_gizi_list.data.length === 0"
                     class="rounded-3xl border border-dashed border-gray-200 p-12 text-center dark:border-[#262626]"
                 >
-                    <UserCheck class="mx-auto h-12 w-12 text-gray-300 dark:text-gray-600" />
-                    <h3 class="mt-3 text-sm font-bold text-gray-900 dark:text-[#f0efea]">
+                    <UserCheck
+                        class="mx-auto h-12 w-12 text-gray-300 dark:text-gray-600"
+                    />
+                    <h3
+                        class="mt-3 text-sm font-bold text-gray-900 dark:text-[#f0efea]"
+                    >
                         Tidak ada ahli gizi yang sesuai
                     </h3>
                     <p class="mt-1 text-xs text-gray-400">
-                        Coba ubah kata kunci pencarian atau pilih kategori spesialisasi lain.
+                        Coba ubah kata kunci pencarian atau pilih kategori
+                        spesialisasi lain.
                     </p>
                 </div>
 
                 <!-- Pagination -->
                 <div
-                    v-if="ahli_gizi_list.links && ahli_gizi_list.links.length > 3"
+                    v-if="
+                        ahli_gizi_list.links && ahli_gizi_list.links.length > 3
+                    "
                     class="mt-6 flex items-center justify-center gap-1"
                 >
-                    <template v-for="(link, idx) in ahli_gizi_list.links" :key="idx">
+                    <template
+                        v-for="(link, idx) in ahli_gizi_list.links"
+                        :key="idx"
+                    >
                         <Link
                             v-if="link.url"
                             :href="link.url"
@@ -346,13 +408,21 @@ const getInitials = (name: string) => {
             <!-- TAB 2: KONSULTASI SAYA                         -->
             <!-- ============================================== -->
             <div v-else-if="currentTab === 'saya'" class="space-y-4">
-                <div v-if="konsultasi_saya.length === 0" class="rounded-3xl border border-dashed border-gray-200 p-12 text-center dark:border-[#262626]">
-                    <MessageSquare class="mx-auto h-12 w-12 text-gray-300 dark:text-gray-600" />
-                    <h3 class="mt-3 text-sm font-bold text-gray-900 dark:text-[#f0efea]">
+                <div
+                    v-if="konsultasi_saya.length === 0"
+                    class="rounded-3xl border border-dashed border-gray-200 p-12 text-center dark:border-[#262626]"
+                >
+                    <MessageSquare
+                        class="mx-auto h-12 w-12 text-gray-300 dark:text-gray-600"
+                    />
+                    <h3
+                        class="mt-3 text-sm font-bold text-gray-900 dark:text-[#f0efea]"
+                    >
                         Belum ada riwayat konsultasi
                     </h3>
                     <p class="mt-1 text-xs text-gray-400">
-                        Anda belum mengajukan konsultasi. Pilih dokter dari tab "Semua Ahli Gizi" untuk memulai.
+                        Anda belum mengajukan konsultasi. Pilih dokter dari tab
+                        "Semua Ahli Gizi" untuk memulai.
                     </p>
                     <button
                         @click="switchTab('semua')"
@@ -367,14 +437,20 @@ const getInitials = (name: string) => {
                     :key="kns.id"
                     class="rounded-3xl border border-gray-100 bg-white p-5 shadow-xs transition-all hover:shadow-md dark:border-[#262626] dark:bg-[#1a1a1a]"
                 >
-                    <div class="flex flex-col justify-between gap-4 sm:flex-row sm:items-start">
+                    <div
+                        class="flex flex-col justify-between gap-4 sm:flex-row sm:items-start"
+                    >
                         <div class="flex items-start gap-3.5">
-                            <div class="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-emerald-100 text-xs font-bold text-[#0f6b36] dark:bg-emerald-950 dark:text-emerald-300">
+                            <div
+                                class="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-emerald-100 text-xs font-bold text-[#0f6b36] dark:bg-emerald-950 dark:text-emerald-300"
+                            >
                                 {{ getInitials(kns.ahli_gizi.nama) }}
                             </div>
                             <div>
                                 <div class="flex flex-wrap items-center gap-2">
-                                    <h3 class="text-sm font-bold text-gray-900 dark:text-[#f0efea]">
+                                    <h3
+                                        class="text-sm font-bold text-gray-900 dark:text-[#f0efea]"
+                                    >
                                         {{ kns.ahli_gizi.nama }}
                                     </h3>
                                     <!-- Status Badges -->
@@ -407,32 +483,53 @@ const getInitials = (name: string) => {
                                     </span>
                                 </div>
 
-                                <div class="mt-1 text-xs text-gray-500 dark:text-gray-400">
-                                    Pasien: <strong>{{ kns.nama_pasien }}</strong> ({{ kns.usia_pasien }} tahun) • Topik: {{ kns.topik }}
+                                <div
+                                    class="mt-1 text-xs text-gray-500 dark:text-gray-400"
+                                >
+                                    Pasien:
+                                    <strong>{{ kns.nama_pasien }}</strong> ({{
+                                        kns.usia_pasien
+                                    }}
+                                    tahun) • Topik: {{ kns.topik }}
                                 </div>
 
                                 <!-- Pesan Terakhir -->
-                                <div v-if="kns.pesan_terakhir" class="mt-2 text-xs text-gray-600 dark:text-gray-300">
-                                    <span class="text-gray-400">Pesan terakhir: </span>
-                                    <span class="italic">"{{ kns.pesan_terakhir.pesan }}"</span>
-                                    <span class="ml-1 text-[10px] text-gray-400">({{ kns.pesan_terakhir.waktu }})</span>
+                                <div
+                                    v-if="kns.pesan_terakhir"
+                                    class="mt-2 text-xs text-gray-600 dark:text-gray-300"
+                                >
+                                    <span class="text-gray-400"
+                                        >Pesan terakhir:
+                                    </span>
+                                    <span class="italic"
+                                        >"{{ kns.pesan_terakhir.pesan }}"</span
+                                    >
+                                    <span class="ml-1 text-[10px] text-gray-400"
+                                        >({{ kns.pesan_terakhir.waktu }})</span
+                                    >
                                 </div>
 
                                 <!-- Alasan Penolakan Jika Ditolak -->
                                 <div
-                                    v-if="kns.status === 'ditolak' && kns.alasan_penolakan"
+                                    v-if="
+                                        kns.status === 'ditolak' &&
+                                        kns.alasan_penolakan
+                                    "
                                     class="mt-2 rounded-xl border border-red-200 bg-red-50 p-2.5 text-xs text-red-800 dark:border-red-900/60 dark:bg-red-950/40 dark:text-red-300"
                                 >
-                                    <strong>Alasan Penolakan:</strong> {{ kns.alasan_penolakan }}
+                                    <strong>Alasan Penolakan:</strong>
+                                    {{ kns.alasan_penolakan }}
                                 </div>
                             </div>
                         </div>
 
                         <!-- Action Button -->
-                        <div class="flex items-center gap-2 self-end sm:self-center">
+                        <div
+                            class="flex items-center gap-2 self-end sm:self-center"
+                        >
                             <Link
                                 :href="route('user.consultation.show', kns.id)"
-                                class="inline-flex items-center gap-1.5 rounded-full px-4 py-2 text-xs font-bold transition-all shadow-xs"
+                                class="inline-flex items-center gap-1.5 rounded-full px-4 py-2 text-xs font-bold shadow-xs transition-all"
                                 :class="
                                     kns.status === 'berlangsung'
                                         ? 'bg-[#0b8043] text-white hover:bg-[#096a37]'
@@ -440,7 +537,11 @@ const getInitials = (name: string) => {
                                 "
                             >
                                 <MessageSquare class="h-3.5 w-3.5" />
-                                <span>{{ kns.status === 'berlangsung' ? 'Lanjutkan Chat' : 'Buka Detail' }}</span>
+                                <span>{{
+                                    kns.status === 'berlangsung'
+                                        ? 'Lanjutkan Chat'
+                                        : 'Buka Detail'
+                                }}</span>
                             </Link>
                         </div>
                     </div>

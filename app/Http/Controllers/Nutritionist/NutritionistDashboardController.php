@@ -55,6 +55,7 @@ class NutritionistDashboardController extends Controller
             ->get()
             ->map(function ($k) {
                 $pesanTerakhir = $k->pesan->first();
+
                 return [
                     'id' => $k->id,
                     'nama' => $k->user->name ?? $k->nama_pasien,
@@ -80,11 +81,12 @@ class NutritionistDashboardController extends Controller
             ->map(function ($k) {
                 $meetingMsg = $k->pesan->first();
                 $meta = $meetingMsg?->metadata ?? [];
+
                 return [
                     'id' => $k->id,
                     'klien_nama' => $k->user->name ?? $k->nama_pasien,
                     'topik' => $k->topik,
-                    'jam' => ($meta['mulai'] ?? '10:00') . ' (' . ($meta['durasi'] ?? '30 mnt') . ')',
+                    'jam' => ($meta['mulai'] ?? '10:00').' ('.($meta['durasi'] ?? '30 mnt').')',
                     'tanggal' => $meta['tanggal'] ?? 'Hari ini',
                     'link' => $meta['link'] ?? '#',
                     'status' => 'Berlangsung',

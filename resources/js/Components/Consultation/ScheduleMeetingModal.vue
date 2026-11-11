@@ -9,7 +9,10 @@ const props = defineProps<{
 
 const emit = defineEmits<{
     (e: 'close'): void;
-    (e: 'submit', data: { tanggal: string; mulai: string; durasi: string; link: string }): void;
+    (
+        e: 'submit',
+        data: { tanggal: string; mulai: string; durasi: string; link: string },
+    ): void;
 }>();
 
 const tanggal = ref('Jumat, 14 Nov 2026');
@@ -20,7 +23,8 @@ const link = ref('https://meet.google.com/abc-defg-hij');
 const durasiOptions = ['15 mnt', '30 mnt', '45 mnt', '60 mnt'];
 
 const handleSubmit = () => {
-    if (!link.value.trim() || !tanggal.value.trim() || !mulai.value.trim()) return;
+    if (!link.value.trim() || !tanggal.value.trim() || !mulai.value.trim())
+        return;
     emit('submit', {
         tanggal: tanggal.value.trim(),
         mulai: mulai.value.trim(),
@@ -43,12 +47,16 @@ const handleSubmit = () => {
 
         <!-- Modal Dialog Content -->
         <div
-            class="relative w-full max-w-lg rounded-3xl border border-gray-100 bg-white p-6 shadow-2xl transition-all dark:border-[#262626] dark:bg-[#1a1a1a] sm:p-7"
+            class="relative w-full max-w-lg rounded-3xl border border-gray-100 bg-white p-6 shadow-2xl transition-all sm:p-7 dark:border-[#262626] dark:bg-[#1a1a1a]"
         >
             <!-- Header -->
-            <div class="flex items-center justify-between pb-4 border-b border-gray-100 dark:border-[#262626]">
+            <div
+                class="flex items-center justify-between border-b border-gray-100 pb-4 dark:border-[#262626]"
+            >
                 <div>
-                    <h3 class="text-lg font-bold text-gray-900 dark:text-[#f0efea]">
+                    <h3
+                        class="text-lg font-bold text-gray-900 dark:text-[#f0efea]"
+                    >
                         Jadwalkan meeting
                     </h3>
                     <p class="mt-0.5 text-xs text-gray-500 dark:text-gray-400">
@@ -67,33 +75,41 @@ const handleSubmit = () => {
             <form @submit.prevent="handleSubmit" class="mt-5 space-y-4">
                 <div class="grid grid-cols-1 gap-3 sm:grid-cols-2">
                     <div>
-                        <label class="block text-xs font-semibold text-gray-700 dark:text-gray-300">
+                        <label
+                            class="block text-xs font-semibold text-gray-700 dark:text-gray-300"
+                        >
                             Tanggal
                         </label>
                         <div class="relative mt-1.5">
-                            <Calendar class="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-400" />
+                            <Calendar
+                                class="pointer-events-none absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2 text-gray-400"
+                            />
                             <input
                                 v-model="tanggal"
                                 type="text"
                                 placeholder="Jumat, 14 Nov 2026"
                                 required
-                                class="w-full rounded-2xl border border-gray-200 bg-gray-50/50 py-2.5 pl-9 pr-3 text-xs font-medium text-gray-900 transition-colors focus:border-emerald-600 focus:bg-white focus:outline-none dark:border-[#262626] dark:bg-[#121212] dark:text-[#f0efea]"
+                                class="w-full rounded-2xl border border-gray-200 bg-gray-50/50 py-2.5 pr-3 pl-9 text-xs font-medium text-gray-900 transition-colors focus:border-emerald-600 focus:bg-white focus:outline-none dark:border-[#262626] dark:bg-[#121212] dark:text-[#f0efea]"
                             />
                         </div>
                     </div>
 
                     <div>
-                        <label class="block text-xs font-semibold text-gray-700 dark:text-gray-300">
+                        <label
+                            class="block text-xs font-semibold text-gray-700 dark:text-gray-300"
+                        >
                             Waktu Mulai
                         </label>
                         <div class="relative mt-1.5">
-                            <Clock class="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-400" />
+                            <Clock
+                                class="pointer-events-none absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2 text-gray-400"
+                            />
                             <input
                                 v-model="mulai"
                                 type="text"
                                 placeholder="19.00"
                                 required
-                                class="w-full rounded-2xl border border-gray-200 bg-gray-50/50 py-2.5 pl-9 pr-3 text-xs font-medium text-gray-900 transition-colors focus:border-emerald-600 focus:bg-white focus:outline-none dark:border-[#262626] dark:bg-[#121212] dark:text-[#f0efea]"
+                                class="w-full rounded-2xl border border-gray-200 bg-gray-50/50 py-2.5 pr-3 pl-9 text-xs font-medium text-gray-900 transition-colors focus:border-emerald-600 focus:bg-white focus:outline-none dark:border-[#262626] dark:bg-[#121212] dark:text-[#f0efea]"
                             />
                         </div>
                     </div>
@@ -101,10 +117,14 @@ const handleSubmit = () => {
 
                 <!-- Durasi Segmented Control -->
                 <div>
-                    <label class="block text-xs font-semibold text-gray-700 dark:text-gray-300">
+                    <label
+                        class="block text-xs font-semibold text-gray-700 dark:text-gray-300"
+                    >
                         Durasi
                     </label>
-                    <div class="mt-1.5 grid grid-cols-4 gap-2 rounded-2xl border border-gray-100 bg-gray-100/70 p-1 dark:border-[#262626] dark:bg-[#121212]">
+                    <div
+                        class="mt-1.5 grid grid-cols-4 gap-2 rounded-2xl border border-gray-100 bg-gray-100/70 p-1 dark:border-[#262626] dark:bg-[#121212]"
+                    >
                         <button
                             v-for="opt in durasiOptions"
                             :key="opt"
@@ -124,21 +144,28 @@ const handleSubmit = () => {
 
                 <!-- Tautan Meeting -->
                 <div>
-                    <label class="block text-xs font-semibold text-gray-700 dark:text-gray-300">
+                    <label
+                        class="block text-xs font-semibold text-gray-700 dark:text-gray-300"
+                    >
                         Tautan meeting
                     </label>
                     <div class="relative mt-1.5">
-                        <Video class="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-400" />
+                        <Video
+                            class="pointer-events-none absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2 text-gray-400"
+                        />
                         <input
                             v-model="link"
                             type="text"
                             placeholder="meet.google.com/abc-defg-hij"
                             required
-                            class="w-full rounded-2xl border border-gray-200 bg-gray-50/50 py-2.5 pl-9 pr-3 text-xs font-medium text-gray-900 transition-colors focus:border-emerald-600 focus:bg-white focus:outline-none dark:border-[#262626] dark:bg-[#121212] dark:text-[#f0efea]"
+                            class="w-full rounded-2xl border border-gray-200 bg-gray-50/50 py-2.5 pr-3 pl-9 text-xs font-medium text-gray-900 transition-colors focus:border-emerald-600 focus:bg-white focus:outline-none dark:border-[#262626] dark:bg-[#121212] dark:text-[#f0efea]"
                         />
                     </div>
-                    <p class="mt-1.5 text-[11px] text-gray-400 dark:text-gray-500">
-                        Tautan Google Meet atau Zoom. Klien melihatnya sebagai kartu di chat.
+                    <p
+                        class="mt-1.5 text-[11px] text-gray-400 dark:text-gray-500"
+                    >
+                        Tautan Google Meet atau Zoom. Klien melihatnya sebagai
+                        kartu di chat.
                     </p>
                 </div>
 
@@ -157,7 +184,10 @@ const handleSubmit = () => {
                         :disabled="loading"
                         class="inline-flex items-center gap-2 rounded-full bg-[#0f6b36] px-6 py-2.5 text-xs font-bold text-white shadow-xs transition-colors hover:bg-[#0c592c] disabled:opacity-50"
                     >
-                        <Loader2 v-if="loading" class="h-3.5 w-3.5 animate-spin" />
+                        <Loader2
+                            v-if="loading"
+                            class="h-3.5 w-3.5 animate-spin"
+                        />
                         <span>Kirim tautan</span>
                     </button>
                 </div>

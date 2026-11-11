@@ -74,7 +74,9 @@ const props = defineProps<{
 const currentTab = ref(props.active_tab || 'berlangsung');
 const selectedClientId = ref<number | null>(props.active_client?.id ?? null);
 const replyText = ref('');
-const messagesList = ref<Array<Message>>([...(props.active_client?.messages ?? [])]);
+const messagesList = ref<Array<Message>>([
+    ...(props.active_client?.messages ?? []),
+]);
 const messageContainer = ref<HTMLDivElement | null>(null);
 
 // Modal states
@@ -86,7 +88,8 @@ const actionLoading = ref(false);
 const scrollToBottom = () => {
     nextTick(() => {
         if (messageContainer.value) {
-            messageContainer.value.scrollTop = messageContainer.value.scrollHeight;
+            messageContainer.value.scrollTop =
+                messageContainer.value.scrollHeight;
         }
     });
 };
@@ -102,7 +105,7 @@ watch(
             messagesList.value = [];
         }
     },
-    { immediate: true }
+    { immediate: true },
 );
 
 // Switch tab filter
@@ -111,7 +114,7 @@ const switchTab = (tab: 'menunggu' | 'berlangsung' | 'selesai' | 'ditolak') => {
     router.get(
         route('nutritionist.consultations'),
         { tab },
-        { preserveState: true, preserveScroll: true }
+        { preserveState: true, preserveScroll: true },
     );
 };
 
@@ -121,7 +124,7 @@ const selectClient = (klienId: number) => {
     router.get(
         route('nutritionist.consultations'),
         { tab: currentTab.value, id: klienId },
-        { preserveState: true, preserveScroll: true }
+        { preserveState: true, preserveScroll: true },
     );
 };
 
@@ -156,11 +159,15 @@ const sendMessage = async () => {
     scrollToBottom();
 
     const csrfToken =
-        (document.querySelector('meta[name="csrf-token"]') as HTMLMetaElement)?.content || '';
+        (document.querySelector('meta[name="csrf-token"]') as HTMLMetaElement)
+            ?.content || '';
 
     try {
         const response = await fetch(
-            route('nutritionist.consultations.send_message', props.active_client.id),
+            route(
+                'nutritionist.consultations.send_message',
+                props.active_client.id,
+            ),
             {
                 method: 'POST',
                 headers: {
@@ -170,22 +177,30 @@ const sendMessage = async () => {
                     'X-Requested-With': 'XMLHttpRequest',
                 },
                 body: JSON.stringify({ pesan: textToSend }),
-            }
+            },
         );
 
         if (response.ok) {
             const data = await response.json();
             if (data.success && data.message_data) {
                 // Replace optimistic message in-place with real DB ID
-                const idx = messagesList.value.findIndex((m) => m.id === tempId);
+                const idx = messagesList.value.findIndex(
+                    (m) => m.id === tempId,
+                );
                 if (idx !== -1) {
                     messagesList.value[idx] = data.message_data;
-                } else if (!messagesList.value.some((m) => m.id === data.message_data.id)) {
+                } else if (
+                    !messagesList.value.some(
+                        (m) => m.id === data.message_data.id,
+                    )
+                ) {
                     messagesList.value.push(data.message_data);
                 }
             }
         } else {
-            messagesList.value = messagesList.value.filter((m) => m.id !== tempId);
+            messagesList.value = messagesList.value.filter(
+                (m) => m.id !== tempId,
+            );
         }
     } catch {
         messagesList.value = messagesList.value.filter((m) => m.id !== tempId);
@@ -207,7 +222,7 @@ const approveConsultation = () => {
             onFinish: () => {
                 actionLoading.value = false;
             },
-        }
+        },
     );
 };
 
@@ -224,7 +239,7 @@ const handleRejectSubmit = (alasan: string) => {
                 actionLoading.value = false;
                 showRejectModal.value = false;
             },
-        }
+        },
     );
 };
 
@@ -241,12 +256,17 @@ const handleCompleteConfirm = () => {
                 actionLoading.value = false;
                 showCompleteModal.value = false;
             },
-        }
+        },
     );
 };
 
 // Submit meeting schedule
-const handleMeetingSubmit = (meetingData: { tanggal: string; mulai: string; durasi: string; link: string }) => {
+const handleMeetingSubmit = (meetingData: {
+    tanggal: string;
+    mulai: string;
+    durasi: string;
+    link: string;
+}) => {
     if (!props.active_client) return;
     actionLoading.value = true;
     router.post(
@@ -258,7 +278,7 @@ const handleMeetingSubmit = (meetingData: { tanggal: string; mulai: string; dura
                 actionLoading.value = false;
                 showMeetingModal.value = false;
             },
-        }
+        },
     );
 };
 
@@ -266,7 +286,8 @@ const handleMeetingSubmit = (meetingData: { tanggal: string; mulai: string; dura
 let pollTimer: any = null;
 
 const pollNewMessages = async () => {
-    if (!props.active_client || props.active_client.status !== 'berlangsung') return;
+    if (!props.active_client || props.active_client.status !== 'berlangsung')
+        return;
 
     // Ambil ID riil terakhir (bukan ID temporer Date.now())
     const realMessages = messagesList.value.filter((m) => m.id < 1000000000);
@@ -284,7 +305,7 @@ const pollNewMessages = async () => {
                     Accept: 'application/json',
                     'X-Requested-With': 'XMLHttpRequest',
                 },
-            }
+            },
         );
 
         if (response.ok) {
@@ -302,7 +323,7 @@ const pollNewMessages = async () => {
                         (m) =>
                             m.id >= 1000000000 &&
                             m.is_me === newM.is_me &&
-                            m.content === newM.content
+                            m.content === newM.content,
                     );
 
                     if (tempIdx !== -1) {
@@ -338,22 +359,32 @@ onUnmounted(() => {
 
     <NutritionistLayout :full-width="true">
         <!-- 3-Column Workspace Matching Figma 12.1 -->
-        <div class="grid h-[calc(100vh-6rem)] grid-cols-1 gap-4 pb-2 lg:grid-cols-12">
+        <div
+            class="grid h-[calc(100vh-6rem)] grid-cols-1 gap-4 pb-2 lg:grid-cols-12"
+        >
             <!-- ============================================== -->
             <!-- COLUMN 1: Daftar Konsultasi & Tabs (3.5 cols) -->
             <!-- ============================================== -->
-            <div class="flex flex-col rounded-3xl border border-gray-100 bg-white p-4 shadow-xs dark:border-[#262626] dark:bg-[#1a1a1a] lg:col-span-3">
+            <div
+                class="flex flex-col rounded-3xl border border-gray-100 bg-white p-4 shadow-xs lg:col-span-3 dark:border-[#262626] dark:bg-[#1a1a1a]"
+            >
                 <div class="flex items-center justify-between px-2 py-1">
-                    <h2 class="text-lg font-bold text-gray-900 dark:text-[#f0efea]">
+                    <h2
+                        class="text-lg font-bold text-gray-900 dark:text-[#f0efea]"
+                    >
                         Konsultasi
                     </h2>
-                    <span class="rounded-full bg-emerald-50 px-2.5 py-0.5 text-[11px] font-bold text-emerald-700 dark:bg-[#17321f] dark:text-[#3fcb7a]">
+                    <span
+                        class="rounded-full bg-emerald-50 px-2.5 py-0.5 text-[11px] font-bold text-emerald-700 dark:bg-[#17321f] dark:text-[#3fcb7a]"
+                    >
                         {{ tabs.menunggu + tabs.berlangsung }} Aktif
                     </span>
                 </div>
 
                 <!-- Tab Filters -->
-                <div class="mt-2 mb-3 flex items-center gap-3 border-b border-gray-100 px-2 text-xs font-semibold overflow-x-auto custom-scrollbar dark:border-[#262626]">
+                <div
+                    class="custom-scrollbar mt-2 mb-3 flex items-center gap-3 overflow-x-auto border-b border-gray-100 px-2 text-xs font-semibold dark:border-[#262626]"
+                >
                     <button
                         @click="switchTab('menunggu')"
                         class="relative pb-2.5 whitespace-nowrap transition-colors"
@@ -406,7 +437,9 @@ onUnmounted(() => {
                         v-if="klien_list.length === 0"
                         class="flex flex-col items-center justify-center py-12 text-center text-xs text-gray-400 dark:text-gray-500"
                     >
-                        <Clock class="mb-2 h-7 w-7 text-gray-300 dark:text-gray-600" />
+                        <Clock
+                            class="mb-2 h-7 w-7 text-gray-300 dark:text-gray-600"
+                        />
                         <p>Tidak ada konsultasi pada tab {{ currentTab }}.</p>
                     </div>
 
@@ -434,22 +467,28 @@ onUnmounted(() => {
                             </div>
 
                             <div class="min-w-0">
-                                <div class="truncate text-xs font-bold text-gray-900 dark:text-[#f0efea]">
+                                <div
+                                    class="truncate text-xs font-bold text-gray-900 dark:text-[#f0efea]"
+                                >
                                     {{ klien.nama }}
                                 </div>
-                                <div class="mt-0.5 truncate text-[11px] text-gray-400 dark:text-gray-400">
+                                <div
+                                    class="mt-0.5 truncate text-[11px] text-gray-400 dark:text-gray-400"
+                                >
                                     {{ klien.subjudul }}
                                 </div>
                             </div>
                         </div>
 
-                        <div class="flex shrink-0 flex-col items-end gap-1.5 pl-2">
+                        <div
+                            class="flex shrink-0 flex-col items-end gap-1.5 pl-2"
+                        >
                             <span class="text-[10px] font-medium text-gray-400">
                                 {{ klien.waktu }}
                             </span>
                             <span
                                 v-if="klien.status === 'menunggu'"
-                                class="rounded-full bg-amber-500 px-1.5 py-0.2 text-[9px] font-bold text-white"
+                                class="py-0.2 rounded-full bg-amber-500 px-1.5 text-[9px] font-bold text-white"
                             >
                                 Baru
                             </span>
@@ -465,32 +504,45 @@ onUnmounted(() => {
             <!-- ============================================== -->
             <!-- COLUMN 2: Chat Conversation Stream (5.5 cols) -->
             <!-- ============================================== -->
-            <div class="flex flex-col overflow-hidden rounded-3xl border border-gray-100 bg-white shadow-xs dark:border-[#262626] dark:bg-[#1a1a1a] lg:col-span-6">
+            <div
+                class="flex flex-col overflow-hidden rounded-3xl border border-gray-100 bg-white shadow-xs lg:col-span-6 dark:border-[#262626] dark:bg-[#1a1a1a]"
+            >
                 <!-- If No Client Selected -->
                 <div
                     v-if="!active_client"
                     class="flex flex-1 flex-col items-center justify-center p-8 text-center"
                 >
-                    <div class="flex h-16 w-16 items-center justify-center rounded-3xl bg-gray-100 text-gray-400 dark:bg-[#262626]">
+                    <div
+                        class="flex h-16 w-16 items-center justify-center rounded-3xl bg-gray-100 text-gray-400 dark:bg-[#262626]"
+                    >
                         <Clock class="h-8 w-8" />
                     </div>
-                    <h3 class="mt-4 text-sm font-bold text-gray-900 dark:text-[#f0efea]">
+                    <h3
+                        class="mt-4 text-sm font-bold text-gray-900 dark:text-[#f0efea]"
+                    >
                         Pilih Konsultasi
                     </h3>
                     <p class="mt-1 max-w-xs text-xs text-gray-400">
-                        Pilih salah satu klien dari daftar di sebelah kiri untuk melihat rincian dan riwayat percakapan.
+                        Pilih salah satu klien dari daftar di sebelah kiri untuk
+                        melihat rincian dan riwayat percakapan.
                     </p>
                 </div>
 
                 <template v-else>
                     <!-- Top Chat Header -->
-                    <div class="flex items-center justify-between gap-4 border-b border-gray-100 px-6 py-4 dark:border-[#262626]">
+                    <div
+                        class="flex items-center justify-between gap-4 border-b border-gray-100 px-6 py-4 dark:border-[#262626]"
+                    >
                         <div class="flex items-center gap-3">
-                            <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-gray-100 text-xs font-bold text-gray-700 dark:bg-[#262626] dark:text-[#f0efea]">
+                            <div
+                                class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-gray-100 text-xs font-bold text-gray-700 dark:bg-[#262626] dark:text-[#f0efea]"
+                            >
                                 {{ active_client.inisial }}
                             </div>
                             <div>
-                                <div class="text-sm font-bold text-gray-900 dark:text-[#f0efea]">
+                                <div
+                                    class="text-sm font-bold text-gray-900 dark:text-[#f0efea]"
+                                >
                                     {{ active_client.nama }}
                                 </div>
                                 <div class="mt-0.5 text-xs text-gray-400">
@@ -502,7 +554,9 @@ onUnmounted(() => {
                         <!-- Action Buttons based on status -->
                         <div class="flex items-center gap-2">
                             <!-- When Waiting for Approval -->
-                            <template v-if="active_client.status === 'menunggu'">
+                            <template
+                                v-if="active_client.status === 'menunggu'"
+                            >
                                 <button
                                     @click="showRejectModal = true"
                                     :disabled="actionLoading"
@@ -522,12 +576,18 @@ onUnmounted(() => {
                             </template>
 
                             <!-- When Active/Berlangsung -->
-                            <template v-else-if="active_client.status === 'berlangsung'">
+                            <template
+                                v-else-if="
+                                    active_client.status === 'berlangsung'
+                                "
+                            >
                                 <button
                                     @click="showMeetingModal = true"
                                     class="inline-flex items-center gap-1.5 rounded-full border border-gray-200 px-3.5 py-1.5 text-xs font-semibold text-gray-700 transition-colors hover:bg-gray-50 dark:border-[#333] dark:text-gray-300 dark:hover:bg-[#262626]"
                                 >
-                                    <Video class="h-3.5 w-3.5 text-gray-600 dark:text-gray-400" />
+                                    <Video
+                                        class="h-3.5 w-3.5 text-gray-600 dark:text-gray-400"
+                                    />
                                     <span>Meeting</span>
                                 </button>
                                 <button
@@ -547,7 +607,9 @@ onUnmounted(() => {
                                     Selesai
                                 </span>
                                 <span
-                                    v-else-if="active_client.status === 'ditolak'"
+                                    v-else-if="
+                                        active_client.status === 'ditolak'
+                                    "
                                     class="rounded-full bg-red-100 px-3 py-1 text-xs font-bold text-red-800 dark:bg-red-950/50 dark:text-red-400"
                                 >
                                     Ditolak
@@ -562,7 +624,10 @@ onUnmounted(() => {
                         class="flex items-center gap-3 border-b border-amber-200 bg-amber-50 px-6 py-2.5 text-xs text-amber-800 dark:border-amber-900/60 dark:bg-amber-950/40 dark:text-amber-300"
                     >
                         <AlertCircle class="h-4 w-4 shrink-0" />
-                        <span>Permohonan ini butuh persetujuan Anda terlebih dahulu sebelum sesi obrolan dapat dimulai.</span>
+                        <span
+                            >Permohonan ini butuh persetujuan Anda terlebih
+                            dahulu sebelum sesi obrolan dapat dimulai.</span
+                        >
                     </div>
 
                     <div
@@ -570,15 +635,25 @@ onUnmounted(() => {
                         class="flex items-center gap-3 border-b border-red-200 bg-red-50 px-6 py-2.5 text-xs text-red-800 dark:border-red-900/60 dark:bg-red-950/40 dark:text-red-300"
                     >
                         <XCircle class="h-4 w-4 shrink-0" />
-                        <span>Permohonan ditolak. Alasan: "{{ active_client.alasan_penolakan || 'Tidak ada alasan.' }}"</span>
+                        <span
+                            >Permohonan ditolak. Alasan: "{{
+                                active_client.alasan_penolakan ||
+                                'Tidak ada alasan.'
+                            }}"</span
+                        >
                     </div>
 
                     <div
                         v-else-if="active_client.status === 'selesai'"
                         class="flex items-center gap-3 border-b border-gray-200 bg-gray-50 px-6 py-2 text-xs text-gray-600 dark:border-[#262626] dark:bg-[#121212] dark:text-gray-400"
                     >
-                        <CheckCircle2 class="h-4 w-4 shrink-0 text-emerald-600" />
-                        <span>Sesi konsultasi ini telah resmi diselesaikan. Percakapan ini dalam mode baca.</span>
+                        <CheckCircle2
+                            class="h-4 w-4 shrink-0 text-emerald-600"
+                        />
+                        <span
+                            >Sesi konsultasi ini telah resmi diselesaikan.
+                            Percakapan ini dalam mode baca.</span
+                        >
                     </div>
 
                     <!-- Messages Bubble Stream -->
@@ -601,12 +676,17 @@ onUnmounted(() => {
 
                             <!-- Meeting Card Message -->
                             <template v-if="msg.tipe_pesan === 'meeting'">
-                                <MeetingCard :metadata="msg.metadata || {}" :is-me="msg.is_me" />
+                                <MeetingCard
+                                    :metadata="msg.metadata || {}"
+                                    :is-me="msg.is_me"
+                                />
                             </template>
 
                             <!-- System Message -->
                             <template v-else-if="msg.tipe_pesan === 'sistem'">
-                                <div class="my-2 max-w-sm rounded-xl border border-gray-200 bg-gray-50 px-3.5 py-2 text-center text-xs text-gray-500 dark:border-[#262626] dark:bg-[#121212] dark:text-gray-400">
+                                <div
+                                    class="my-2 max-w-sm rounded-xl border border-gray-200 bg-gray-50 px-3.5 py-2 text-center text-xs text-gray-500 dark:border-[#262626] dark:bg-[#121212] dark:text-gray-400"
+                                >
                                     {{ msg.content }}
                                 </div>
                             </template>
@@ -632,7 +712,9 @@ onUnmounted(() => {
                     </div>
 
                     <!-- Bottom Input Bar -->
-                    <div class="border-t border-gray-100 bg-white p-4 dark:border-[#262626] dark:bg-[#1a1a1a]">
+                    <div
+                        class="border-t border-gray-100 bg-white p-4 dark:border-[#262626] dark:bg-[#1a1a1a]"
+                    >
                         <form
                             @submit.prevent="sendMessage"
                             class="flex items-center gap-2"
@@ -641,7 +723,9 @@ onUnmounted(() => {
                                 <input
                                     v-model="replyText"
                                     type="text"
-                                    :disabled="active_client.status !== 'berlangsung'"
+                                    :disabled="
+                                        active_client.status !== 'berlangsung'
+                                    "
                                     :placeholder="
                                         active_client.status === 'berlangsung'
                                             ? `Balas ${active_client.nama.split(' ')[0]}...`
@@ -653,7 +737,10 @@ onUnmounted(() => {
 
                             <button
                                 type="submit"
-                                :disabled="!replyText.trim() || active_client.status !== 'berlangsung'"
+                                :disabled="
+                                    !replyText.trim() ||
+                                    active_client.status !== 'berlangsung'
+                                "
                                 class="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-[#0f6b36] text-white shadow-xs transition-all hover:bg-[#0c592c] disabled:opacity-40"
                             >
                                 <Send class="h-4 w-4" />
@@ -668,81 +755,122 @@ onUnmounted(() => {
             <!-- ============================================== -->
             <div
                 v-if="active_client"
-                class="flex flex-col overflow-y-auto rounded-3xl border border-gray-100 bg-white p-5 shadow-xs dark:border-[#262626] dark:bg-[#1a1a1a] lg:col-span-3"
+                class="flex flex-col overflow-y-auto rounded-3xl border border-gray-100 bg-white p-5 shadow-xs lg:col-span-3 dark:border-[#262626] dark:bg-[#1a1a1a]"
             >
-                <div class="flex items-center justify-between mb-4">
-                    <h2 class="text-base font-bold text-gray-900 dark:text-[#f0efea]">
+                <div class="mb-4 flex items-center justify-between">
+                    <h2
+                        class="text-base font-bold text-gray-900 dark:text-[#f0efea]"
+                    >
                         Konteks klien
                     </h2>
-                    <span class="text-[10px] font-mono text-gray-400">
+                    <span class="font-mono text-[10px] text-gray-400">
                         {{ active_client.nomor_konsultasi }}
                     </span>
                 </div>
 
-                <div class="space-y-3 border-b border-gray-100 pb-4 text-xs dark:border-[#262626]">
+                <div
+                    class="space-y-3 border-b border-gray-100 pb-4 text-xs dark:border-[#262626]"
+                >
                     <div class="flex items-center justify-between">
                         <span class="text-gray-400">Untuk</span>
-                        <span class="font-semibold text-gray-900 dark:text-[#f0efea]">{{
-                            active_client.klien_info.untuk
-                        }}</span>
+                        <span
+                            class="font-semibold text-gray-900 dark:text-[#f0efea]"
+                            >{{ active_client.klien_info.untuk }}</span
+                        >
                     </div>
                     <div class="flex items-center justify-between">
                         <span class="text-gray-400">Topik</span>
-                        <span class="font-semibold text-gray-900 dark:text-[#f0efea]">{{
-                            active_client.klien_info.topik
-                        }}</span>
+                        <span
+                            class="font-semibold text-gray-900 dark:text-[#f0efea]"
+                            >{{ active_client.klien_info.topik }}</span
+                        >
                     </div>
                     <div class="flex items-center justify-between">
                         <span class="text-gray-400">Diajukan</span>
-                        <span class="font-semibold text-gray-900 dark:text-[#f0efea]">{{
-                            active_client.klien_info.diajukan
-                        }}</span>
+                        <span
+                            class="font-semibold text-gray-900 dark:text-[#f0efea]"
+                            >{{ active_client.klien_info.diajukan }}</span
+                        >
                     </div>
                 </div>
 
                 <!-- Keluhan Box -->
-                <div class="my-4 rounded-2xl border border-gray-100 bg-[#f9fafb] p-4 dark:border-[#262626] dark:bg-[#121212]">
-                    <div class="mb-1.5 text-[11px] font-bold text-gray-700 dark:text-gray-300">
+                <div
+                    class="my-4 rounded-2xl border border-gray-100 bg-[#f9fafb] p-4 dark:border-[#262626] dark:bg-[#121212]"
+                >
+                    <div
+                        class="mb-1.5 text-[11px] font-bold text-gray-700 dark:text-gray-300"
+                    >
                         Keluhan
                     </div>
-                    <p class="text-xs leading-relaxed text-gray-600 dark:text-gray-400">
+                    <p
+                        class="text-xs leading-relaxed text-gray-600 dark:text-gray-400"
+                    >
                         {{ active_client.klien_info.keluhan }}
                     </p>
                 </div>
 
                 <!-- Data Dibagikan Klien -->
                 <div class="mt-2 space-y-3">
-                    <div class="mb-3 flex items-center gap-1.5 text-xs font-bold text-emerald-800 dark:text-emerald-400">
-                        <ShieldCheck class="h-4 w-4 text-[#0f6b36] dark:text-emerald-400" />
+                    <div
+                        class="mb-3 flex items-center gap-1.5 text-xs font-bold text-emerald-800 dark:text-emerald-400"
+                    >
+                        <ShieldCheck
+                            class="h-4 w-4 text-[#0f6b36] dark:text-emerald-400"
+                        />
                         <span>Data dibagikan klien</span>
                     </div>
 
                     <div class="flex items-center justify-between py-1 text-xs">
-                        <span class="text-gray-500 dark:text-gray-400">BMI untuk usia</span>
-                        <span class="font-bold text-gray-900 dark:text-[#f0efea]">{{
-                            active_client.klien_info.data_dibagikan.bmi_usia || 'Normal'
-                        }}</span>
+                        <span class="text-gray-500 dark:text-gray-400"
+                            >BMI untuk usia</span
+                        >
+                        <span
+                            class="font-bold text-gray-900 dark:text-[#f0efea]"
+                            >{{
+                                active_client.klien_info.data_dibagikan
+                                    .bmi_usia || 'Normal'
+                            }}</span
+                        >
                     </div>
 
                     <div class="flex items-center justify-between py-1 text-xs">
-                        <span class="text-gray-500 dark:text-gray-400">Energi rata-rata</span>
-                        <span class="font-bold text-gray-900 dark:text-[#f0efea]">{{
-                            active_client.klien_info.data_dibagikan.energi_rata_rata || '1.420 kkal'
-                        }}</span>
+                        <span class="text-gray-500 dark:text-gray-400"
+                            >Energi rata-rata</span
+                        >
+                        <span
+                            class="font-bold text-gray-900 dark:text-[#f0efea]"
+                            >{{
+                                active_client.klien_info.data_dibagikan
+                                    .energi_rata_rata || '1.420 kkal'
+                            }}</span
+                        >
                     </div>
 
                     <div class="flex items-center justify-between py-1 text-xs">
-                        <span class="text-gray-500 dark:text-gray-400">Camilan manis</span>
-                        <span class="font-bold text-gray-900 dark:text-[#f0efea]">{{
-                            active_client.klien_info.data_dibagikan.camilan_manis || '2 kali per hari'
-                        }}</span>
+                        <span class="text-gray-500 dark:text-gray-400"
+                            >Camilan manis</span
+                        >
+                        <span
+                            class="font-bold text-gray-900 dark:text-[#f0efea]"
+                            >{{
+                                active_client.klien_info.data_dibagikan
+                                    .camilan_manis || '2 kali per hari'
+                            }}</span
+                        >
                     </div>
 
                     <div class="flex items-center justify-between py-1 text-xs">
-                        <span class="text-gray-500 dark:text-gray-400">Sayur tercatat</span>
-                        <span class="font-bold text-gray-900 dark:text-[#f0efea]">{{
-                            active_client.klien_info.data_dibagikan.sayur_tercatat || '3 dari 7 hari'
-                        }}</span>
+                        <span class="text-gray-500 dark:text-gray-400"
+                            >Sayur tercatat</span
+                        >
+                        <span
+                            class="font-bold text-gray-900 dark:text-[#f0efea]"
+                            >{{
+                                active_client.klien_info.data_dibagikan
+                                    .sayur_tercatat || '3 dari 7 hari'
+                            }}</span
+                        >
                     </div>
                 </div>
             </div>

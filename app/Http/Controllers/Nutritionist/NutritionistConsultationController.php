@@ -32,7 +32,7 @@ class NutritionistConsultationController extends Controller
         );
 
         $currentTab = $request->input('tab', 'berlangsung');
-        if (!in_array($currentTab, ['menunggu', 'berlangsung', 'selesai', 'ditolak'])) {
+        if (! in_array($currentTab, ['menunggu', 'berlangsung', 'selesai', 'ditolak'])) {
             $currentTab = 'berlangsung';
         }
 
@@ -71,9 +71,13 @@ class NutritionistConsultationController extends Controller
                 if ($w !== '') {
                     $inisial .= strtoupper($w[0]);
                 }
-                if (strlen($inisial) >= 2) break;
+                if (strlen($inisial) >= 2) {
+                    break;
+                }
             }
-            if ($inisial === '') $inisial = 'KL';
+            if ($inisial === '') {
+                $inisial = 'KL';
+            }
 
             $pesanTerakhir = $k->pesan->first();
 
@@ -104,7 +108,7 @@ class NutritionistConsultationController extends Controller
                 ->find($selectedId);
         }
 
-        if (!$activeKonsultasi && $klienListRaw->isNotEmpty()) {
+        if (! $activeKonsultasi && $klienListRaw->isNotEmpty()) {
             $activeKonsultasi = Konsultasi::with(['user', 'pesan.sender'])
                 ->where('ahli_gizi_id', $ahliGizi->id)
                 ->find($klienListRaw->first()->id);
@@ -125,7 +129,9 @@ class NutritionistConsultationController extends Controller
                 if ($w !== '') {
                     $inisial .= strtoupper($w[0]);
                 }
-                if (strlen($inisial) >= 2) break;
+                if (strlen($inisial) >= 2) {
+                    break;
+                }
             }
 
             $health = $activeKonsultasi->data_kesehatan ?? [

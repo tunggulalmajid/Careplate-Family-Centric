@@ -136,7 +136,7 @@ Route::middleware(['auth'])->name('user.')->group(function () {
     Route::get('/pengajuan-saya', [UserFoodController::class, 'mine'])->middleware('permission:food:create')->name('foods.mine');
     Route::get('/artikel', [UserArticleController::class, 'index'])->name('articles');
     Route::get('/artikel/{slug}', [UserArticleController::class, 'show'])->name('articles.show');
-    
+
     // Fitur Konsultasi Ahli Gizi
     Route::get('/konsultasi', [UserConsultationController::class, 'index'])->name('consultation');
     Route::get('/konsultasi/ajukan/{ahliGizi}', [UserConsultationController::class, 'create'])->name('consultation.create');

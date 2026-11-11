@@ -70,6 +70,7 @@ class UserConsultationController extends Controller
             ->get()
             ->map(function ($k) {
                 $pesanTerakhir = $k->pesan->first();
+
                 return [
                     'id' => $k->id,
                     'nomor_konsultasi' => $k->nomor_konsultasi,
@@ -143,7 +144,7 @@ class UserConsultationController extends Controller
 
         $healthSnapshot = [
             'bmi_usia' => $latestBmi ? "{$latestBmi->kategori_bmi} (BMI {$latestBmi->skor_bmi})" : 'Normal (BMI 22.0)',
-            'energi_rata_rata' => number_format((float) $avgKalori, 0, ',', '.') . ' kkal',
+            'energi_rata_rata' => number_format((float) $avgKalori, 0, ',', '.').' kkal',
             'camilan_manis' => '1 - 2 kali per hari',
             'sayur_tercatat' => '4 dari 7 hari tercatat',
         ];
@@ -190,7 +191,7 @@ class UserConsultationController extends Controller
             'usia_pasien' => $validated['usia_pasien'],
             'topik' => $ahliGizi->spesialisasi ?? 'Konsultasi Gizi',
             'keluhan' => $validated['keluhan'],
-            'data_kesehatan' => !empty($validated['sertakan_data_kesehatan']) ? ($validated['data_kesehatan'] ?? null) : null,
+            'data_kesehatan' => ! empty($validated['sertakan_data_kesehatan']) ? ($validated['data_kesehatan'] ?? null) : null,
             'status' => 'menunggu',
         ]);
 

@@ -49,7 +49,7 @@ defineProps<{
             >
                 <div>
                     <h1
-                        class="text-2xl font-bold tracking-tight text-gray-900 dark:text-[#f0efea] sm:text-3xl"
+                        class="text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl dark:text-[#f0efea]"
                     >
                         Dashboard Ahli Gizi
                     </h1>
@@ -76,7 +76,9 @@ defineProps<{
                     <div
                         class="mb-3 flex items-center gap-2 text-xs font-medium text-gray-500 dark:text-gray-400"
                     >
-                        <Users class="h-4 w-4 text-gray-400 dark:text-gray-500" />
+                        <Users
+                            class="h-4 w-4 text-gray-400 dark:text-gray-500"
+                        />
                         <span>Klien Aktif</span>
                     </div>
                     <div
@@ -84,7 +86,9 @@ defineProps<{
                     >
                         {{ stats.klien_aktif }}
                     </div>
-                    <div class="mt-2 text-[11px] font-medium text-emerald-600 dark:text-[#3fcb7a]">
+                    <div
+                        class="mt-2 text-[11px] font-medium text-emerald-600 dark:text-[#3fcb7a]"
+                    >
                         Dalam pemantauan rutin
                     </div>
                 </div>
@@ -95,7 +99,9 @@ defineProps<{
                     <div
                         class="mb-3 flex items-center gap-2 text-xs font-medium text-gray-500 dark:text-gray-400"
                     >
-                        <Calendar class="h-4 w-4 text-gray-400 dark:text-gray-500" />
+                        <Calendar
+                            class="h-4 w-4 text-gray-400 dark:text-gray-500"
+                        />
                         <span>Konsultasi Hari Ini</span>
                     </div>
                     <div
@@ -103,7 +109,9 @@ defineProps<{
                     >
                         {{ stats.konsultasi_hari_ini }}
                     </div>
-                    <div class="mt-2 text-[11px] font-medium text-gray-400 dark:text-gray-500">
+                    <div
+                        class="mt-2 text-[11px] font-medium text-gray-400 dark:text-gray-500"
+                    >
                         3 chat • 2 video meeting
                     </div>
                 </div>
@@ -122,7 +130,9 @@ defineProps<{
                     >
                         {{ stats.menunggu_respon }}
                     </div>
-                    <div class="mt-2 text-[11px] font-medium text-amber-600 dark:text-amber-400">
+                    <div
+                        class="mt-2 text-[11px] font-medium text-amber-600 dark:text-amber-400"
+                    >
                         Perlu balasan &gt; 1 jam
                     </div>
                 </div>
@@ -141,7 +151,9 @@ defineProps<{
                     >
                         {{ stats.rating_kepuasan }}
                     </div>
-                    <div class="mt-2 text-[11px] font-medium text-gray-400 dark:text-gray-500">
+                    <div
+                        class="mt-2 text-[11px] font-medium text-gray-400 dark:text-gray-500"
+                    >
                         Dari 89 ulasan klien
                     </div>
                 </div>
@@ -151,10 +163,12 @@ defineProps<{
             <div class="grid grid-cols-1 gap-6 lg:grid-cols-12">
                 <!-- Antrean Konsultasi Masuk (7 cols) -->
                 <div
-                    class="rounded-3xl border border-gray-100 bg-white p-6 shadow-xs dark:border-[#262626] dark:bg-[#1a1a1a] lg:col-span-7"
+                    class="rounded-3xl border border-gray-100 bg-white p-6 shadow-xs lg:col-span-7 dark:border-[#262626] dark:bg-[#1a1a1a]"
                 >
                     <div class="mb-5 flex items-center justify-between">
-                        <h2 class="text-base font-bold text-gray-900 dark:text-[#f0efea]">
+                        <h2
+                            class="text-base font-bold text-gray-900 dark:text-[#f0efea]"
+                        >
                             Pesan Konsultasi Masuk
                         </h2>
                         <Link
@@ -207,12 +221,21 @@ defineProps<{
                                 </div>
                             </div>
 
-                            <div class="flex shrink-0 flex-col items-end gap-1.5">
-                                <span class="text-[11px] font-medium text-gray-400">
+                            <div
+                                class="flex shrink-0 flex-col items-end gap-1.5"
+                            >
+                                <span
+                                    class="text-[11px] font-medium text-gray-400"
+                                >
                                     {{ item.waktu }}
                                 </span>
                                 <Link
-                                    :href="route('nutritionist.consultations', { tab: item.status, id: item.id })"
+                                    :href="
+                                        route('nutritionist.consultations', {
+                                            tab: item.status,
+                                            id: item.id,
+                                        })
+                                    "
                                     class="inline-flex items-center gap-1 rounded-lg border border-gray-200 bg-white px-2.5 py-1 text-xs font-semibold text-gray-700 shadow-2xs transition-colors hover:bg-gray-50 hover:text-emerald-700 dark:border-[#333] dark:bg-[#222] dark:text-gray-300 dark:hover:bg-[#2a2a2a] dark:hover:text-[#3fcb7a]"
                                 >
                                     <span>Detail</span>
@@ -225,10 +248,12 @@ defineProps<{
 
                 <!-- Jadwal Konsultasi Hari Ini (5 cols) -->
                 <div
-                    class="rounded-3xl border border-gray-100 bg-white p-6 shadow-xs dark:border-[#262626] dark:bg-[#1a1a1a] lg:col-span-5"
+                    class="rounded-3xl border border-gray-100 bg-white p-6 shadow-xs lg:col-span-5 dark:border-[#262626] dark:bg-[#1a1a1a]"
                 >
                     <div class="mb-5 flex items-center justify-between">
-                        <h2 class="text-base font-bold text-gray-900 dark:text-[#f0efea]">
+                        <h2
+                            class="text-base font-bold text-gray-900 dark:text-[#f0efea]"
+                        >
                             Jadwal Sesi Hari Ini
                         </h2>
                         <span class="text-xs font-medium text-gray-400">
@@ -248,9 +273,10 @@ defineProps<{
                             "
                         >
                             <div class="flex items-center justify-between">
-                                <span class="text-xs font-bold text-gray-800 dark:text-[#f0efea]">{{
-                                    sesi.jam
-                                }}</span>
+                                <span
+                                    class="text-xs font-bold text-gray-800 dark:text-[#f0efea]"
+                                    >{{ sesi.jam }}</span
+                                >
                                 <span
                                     class="rounded-full px-2 py-0.5 text-[11px] font-semibold"
                                     :class="
@@ -267,7 +293,9 @@ defineProps<{
                             >
                                 {{ sesi.klien_nama }}
                             </div>
-                            <div class="mt-0.5 text-xs text-gray-500 dark:text-gray-400">
+                            <div
+                                class="mt-0.5 text-xs text-gray-500 dark:text-gray-400"
+                            >
                                 {{ sesi.topik }}
                             </div>
                         </div>
