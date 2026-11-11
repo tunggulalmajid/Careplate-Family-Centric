@@ -28,10 +28,8 @@ services:
         volumes:
             - careplate_storage:/var/www/html/storage/app/public
         depends_on:
-            db:
-                condition: service_healthy
-            redis:
-                condition: service_started
+            - db
+            - redis
         networks:
             - careplate_network
 
@@ -39,30 +37,27 @@ services:
         image: mysql:8.0
         container_name: careplate_db
         restart: unless-stopped
+        entrypoint:
+            - bash
+            - -c
+            - |
+                if [ "$$DB_USERNAME" = "root" ] || [ -z "$$DB_USERNAME" ]; then
+                    unset MYSQL_USER
+                    unset MYSQL_PASSWORD
+                else
+                    export MYSQL_USER="$$DB_USERNAME"
+                    export MYSQL_PASSWORD="$$DB_PASSWORD"
+                fi
+                exec /entrypoint.sh mysqld
         environment:
-            MYSQL_ROOT_PASSWORD: '${DB_ROOT_PASSWORD:-root_password}'
+            DB_USERNAME: '${DB_USERNAME:-root}'
+            DB_PASSWORD: '${DB_PASSWORD:-careplate_password}'
+            MYSQL_ROOT_PASSWORD: '${DB_ROOT_PASSWORD:-${DB_PASSWORD:-root_password}}'
             MYSQL_DATABASE: '${DB_DATABASE:-careplate}'
-            MYSQL_USER: '${DB_USERNAME:-careplate_user}'
-            MYSQL_PASSWORD: '${DB_PASSWORD:-careplate_password}'
         volumes:
             - careplate_db_data:/var/lib/mysql
         networks:
             - careplate_network
-        healthcheck:
-            test:
-                [
-                    'CMD',
-                    'mysqladmin',
-                    'ping',
-                    '-h',
-                    'localhost',
-                    '-u',
-                    'root',
-                    '-p${DB_ROOT_PASSWORD:-root_password}',
-                ]
-            interval: 10s
-            timeout: 5s
-            retries: 5
 
     redis:
         image: redis:alpine

@@ -158,8 +158,15 @@ jobs:
             echo "Restarting containers..."
             docker compose up -d
 
-            echo "Waiting for services to be ready..."
-            sleep 5
+            echo "Waiting for MySQL database to initialize..."
+            for i in $(seq 1 30); do
+              if docker compose exec -T app php -r "try { new PDO('mysql:host=db;port=3306;dbname=' . env('DB_DATABASE'), env('DB_USERNAME'), env('DB_PASSWORD')); exit(0); } catch (Throwable \$e) { exit(1); }" >/dev/null 2>&1; then
+                echo "Database connection established!"
+                break
+              fi
+              echo "Waiting for MySQL to accept connections ($i/30)..."
+              sleep 2
+            done
 
             echo "Running database migrations..."
             docker compose exec -T app php artisan migrate --force
