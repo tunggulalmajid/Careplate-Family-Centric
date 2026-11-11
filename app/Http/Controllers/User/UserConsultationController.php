@@ -130,13 +130,16 @@ class UserConsultationController extends Controller
         $latestKebutuhan = KebutuhanKalori::where('pengguna_id', $pengguna?->id)->latest()->first();
 
         // Rata-rata 7 hari
-        $sevenDaysAgo = now()->subDays(7)->toDateString();
-        $logs7Days = PelacakanMakanan::where('pengguna_id', $pengguna?->id)
-            ->where('tanggal', '>=', $sevenDaysAgo)
-            ->get();
+        $avgKalori = 1800;
+        if ($pengguna) {
+            $sevenDaysAgo = now()->subDays(7)->toDateString();
+            $logs7Days = PelacakanMakanan::where('pengguna_id', $pengguna->id)
+                ->where('tanggal_konsumsi', '>=', $sevenDaysAgo)
+                ->get();
 
-        $totalKalori7 = $logs7Days->sum('kalori_tercatat');
-        $avgKalori = $logs7Days->count() > 0 ? round($totalKalori7 / 7) : ($latestKebutuhan?->total_kalori_harian ?? 1800);
+            $totalKalori7 = (float) $logs7Days->sum('total_kalori');
+            $avgKalori = $logs7Days->count() > 0 ? round($totalKalori7 / 7) : ($latestKebutuhan?->total_kalori_harian ?? 1800);
+        }
 
         $healthSnapshot = [
             'bmi_usia' => $latestBmi ? "{$latestBmi->kategori_bmi} (BMI {$latestBmi->skor_bmi})" : 'Normal (BMI 22.0)',

@@ -13,6 +13,7 @@ use App\Http\Controllers\Nutritionist\NutritionistConsultationController;
 use App\Http\Controllers\Nutritionist\NutritionistDashboardController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\User\AiPageController;
+use App\Http\Controllers\User\CalculatorController;
 use App\Http\Controllers\User\MealLogController;
 use App\Http\Controllers\User\UserArticleController;
 use App\Http\Controllers\User\UserConsultationController;
@@ -114,7 +115,19 @@ Route::middleware(['auth'])->name('user.')->group(function () {
     // AI screens: same permissions as the /ai/v1 API behind them.
     Route::get('/pindai-kemasan', [AiPageController::class, 'scan'])->middleware('permission:health_tool:use_scanner')->name('scan');
     Route::get('/chat-gizi', [AiPageController::class, 'chat'])->middleware('permission:health_tool:use_ai_chat')->name('chat_gizi');
-    Route::get('/kalkulator', fn () => redirect()->route('user.dashboard'))->name('calculator');
+    // Kalkulator (Figma 06): BMI and daily calories. Fixed words are declared before the {id} routes.
+    Route::middleware('permission:health_tool:use_calculator')->prefix('kalkulator')->name('calculator')->group(function () {
+        Route::get('/', [CalculatorController::class, 'index'])->name('');
+        Route::get('/riwayat/bmi', [CalculatorController::class, 'bmiHistory'])->name('.bmi.history');
+        Route::get('/bmi', [CalculatorController::class, 'bmiForm'])->name('.bmi');
+        Route::post('/bmi/pratinjau', [CalculatorController::class, 'bmiPreview'])->middleware('throttle:120,1')->name('.bmi.preview');
+        Route::post('/bmi', [CalculatorController::class, 'bmiStore'])->middleware('throttle:30,1')->name('.bmi.store');
+        Route::get('/bmi/{bmi}', [CalculatorController::class, 'bmiShow'])->whereNumber('bmi')->name('.bmi.show');
+        Route::get('/kalori', [CalculatorController::class, 'kaloriForm'])->name('.kalori');
+        Route::post('/kalori/pratinjau', [CalculatorController::class, 'kaloriPreview'])->middleware('throttle:120,1')->name('.kalori.preview');
+        Route::post('/kalori', [CalculatorController::class, 'kaloriStore'])->middleware('throttle:30,1')->name('.kalori.store');
+        Route::get('/kalori/{kebutuhan}', [CalculatorController::class, 'kaloriShow'])->whereNumber('kebutuhan')->name('.kalori.show');
+    });
     // Data Makanan (Figma 07). /ajukan is declared before /{makanan} so it is not read as an id.
     Route::get('/data-makanan', [UserFoodController::class, 'index'])->middleware('permission:food:read')->name('foods');
     Route::get('/data-makanan/ajukan', [UserFoodController::class, 'create'])->middleware('permission:food:create')->name('foods.create');
