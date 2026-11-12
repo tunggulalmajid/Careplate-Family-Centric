@@ -54,11 +54,12 @@ const members = [
     <section id="meja-keluarga" class="relative overflow-hidden bg-white py-20">
         <div class="mx-auto max-w-[1440px] px-4 sm:px-6 lg:px-8">
             <div
-                class="relative overflow-hidden rounded-[36px] border border-[#eceae5] bg-[#fef9e7] p-6 shadow-xs sm:p-12 lg:p-16"
+                class="relative overflow-hidden rounded-[36px] border border-[#eceae5] bg-[#fef9e7] p-4 pb-8 shadow-xs sm:p-12 lg:p-16"
             >
                 <!-- Large Decorative Warm Yellow Circle Behind Mockup -->
                 <div
-                    class="pointer-events-none absolute top-1/2 -right-16 hidden h-[480px] w-[480px] -translate-y-1/2 rounded-full bg-[#fde8aa]/50 lg:block"
+                    aria-hidden="true"
+                    class="pointer-events-none absolute top-1/2 right-0 hidden h-[480px] w-[480px] -translate-y-1/2 rounded-full bg-[#fde8aa]/50 lg:block"
                 ></div>
 
                 <!-- 4-point Decorative Stars -->
@@ -93,7 +94,7 @@ const members = [
                     class="relative z-10 grid grid-cols-1 items-center gap-12 lg:grid-cols-12 lg:gap-14"
                 >
                     <!-- Left Column: Copy & Checklist -->
-                    <div class="space-y-6 lg:col-span-5">
+                    <div data-reveal class="space-y-6 lg:col-span-5">
                         <!-- Top Pill Badge -->
                         <div
                             class="inline-flex items-center gap-1.5 rounded-full bg-[#e4f6ea] px-3 py-1 text-xs font-bold text-[#0b8043]"
@@ -166,10 +167,11 @@ const members = [
                     </div>
 
                     <!-- Right Column: Interactive Weekly Table Mockup Card -->
-                    <div class="relative lg:col-span-7">
+                    <div class="relative min-w-0 lg:col-span-7">
                         <!-- Main White Card -->
                         <div
-                            class="relative z-10 rounded-3xl border border-[#eceae5] bg-white p-6 shadow-xl sm:p-8"
+                            data-family-demo
+                            class="relative z-10 rounded-[20px] border border-[#eceae5] bg-white p-3 shadow-xl sm:rounded-3xl sm:p-8"
                         >
                             <!-- Card Header -->
                             <div
@@ -205,6 +207,7 @@ const members = [
                                 class="my-4 h-2 w-full overflow-hidden rounded-full bg-[#f4f3f0]"
                             >
                                 <div
+                                    data-family-progress
                                     class="h-full rounded-full bg-[#0b8043]"
                                     style="width: 58%"
                                 ></div>
@@ -213,24 +216,26 @@ const members = [
                             <!-- Table -->
                             <div class="overflow-x-auto">
                                 <table
-                                    class="w-full text-left text-xs sm:text-sm"
+                                    class="w-full table-fixed text-left text-xs sm:text-sm"
                                 >
                                     <thead>
                                         <tr
                                             class="border-b border-[#f4f3f0] text-xs text-[#5e5e5e]"
                                         >
-                                            <th class="py-2.5 font-bold">
+                                            <th
+                                                class="w-20 py-2.5 font-bold sm:w-24"
+                                            >
                                                 Anggota
                                             </th>
                                             <th
                                                 v-for="d in days"
                                                 :key="d"
-                                                class="px-1.5 py-2.5 text-center font-medium"
+                                                class="px-0.5 py-2.5 text-center font-medium sm:px-1.5"
                                             >
                                                 {{ d }}
                                             </th>
                                             <th
-                                                class="py-2.5 text-right font-bold"
+                                                class="w-16 py-2.5 text-right font-bold"
                                             >
                                                 Hari
                                             </th>
@@ -245,14 +250,16 @@ const members = [
                                             <!-- Member Info with Initial Box -->
                                             <td class="py-3 pr-2">
                                                 <div
-                                                    class="flex items-center gap-2.5"
+                                                    class="flex flex-col items-start gap-1 sm:flex-row sm:items-center sm:gap-2.5"
                                                 >
                                                     <span
                                                         class="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-[#f4f3f0] text-xs font-bold text-[#191919]"
                                                     >
                                                         {{ m.initials }}
                                                     </span>
-                                                    <div class="leading-tight">
+                                                    <div
+                                                        class="min-w-0 leading-tight break-words"
+                                                    >
                                                         <p
                                                             class="text-xs font-bold text-[#191919] sm:text-sm"
                                                         >
@@ -273,10 +280,11 @@ const members = [
                                                     recorded, idx
                                                 ) in m.logs"
                                                 :key="idx"
-                                                class="px-1.5 py-3 text-center"
+                                                class="px-0.5 py-3 text-center sm:px-1.5"
                                             >
                                                 <span
                                                     v-if="recorded"
+                                                    data-family-check
                                                     class="inline-flex h-5 w-5 items-center justify-center rounded-full bg-[#0b8043] text-white"
                                                 >
                                                     <Check
@@ -290,9 +298,9 @@ const members = [
                                             </td>
 
                                             <!-- Total Days Badge -->
-                                            <td class="py-3 pl-2 text-right">
+                                            <td class="py-3 text-right sm:pl-2">
                                                 <span
-                                                    class="inline-flex items-center gap-1 rounded-full px-2.5 py-0.5 text-xs font-semibold whitespace-nowrap"
+                                                    class="inline-flex items-center gap-1 rounded-full px-1 py-0.5 text-[11px] font-semibold whitespace-nowrap sm:px-2.5 sm:text-xs"
                                                     :class="
                                                         m.met
                                                             ? 'bg-[#e6f6ec] text-[#0b7a46]'
@@ -313,7 +321,7 @@ const members = [
 
                             <!-- Footer Privacy Notice Inside Card -->
                             <div
-                                class="mt-5 flex items-center gap-2 rounded-xl bg-[#f4f3f0] px-4 py-2.5 text-xs text-[#5e5e5e]"
+                                class="mt-5 flex items-center gap-2 rounded-lg bg-[#f4f3f0] px-4 py-2.5 text-xs text-[#5e5e5e] sm:rounded-xl"
                             >
                                 <Info
                                     class="h-3.5 w-3.5 shrink-0 text-[#5e5e5e]"

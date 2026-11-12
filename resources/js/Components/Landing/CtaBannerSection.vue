@@ -17,18 +17,18 @@ defineProps<Props>();
         <div
             class="pointer-events-none absolute top-16 left-[15%] text-[#ffc933] select-none"
         >
-            <Sparkles class="h-8 w-8" />
+            <Sparkles class="landing-twinkle h-8 w-8" />
         </div>
         <div
             class="pointer-events-none absolute top-24 right-[15%] text-[#0b8043]/40 select-none"
         >
-            <Sparkles class="h-6 w-6" />
+            <Sparkles class="landing-twinkle h-6 w-6 [animation-delay:1.4s]" />
         </div>
 
         <div
             class="relative z-10 mx-auto max-w-[1440px] px-4 text-center sm:px-6 lg:px-8"
         >
-            <div class="mx-auto max-w-3xl space-y-6">
+            <div data-reveal-group class="mx-auto max-w-3xl space-y-6">
                 <h2
                     class="font-display text-4xl leading-tight font-bold tracking-tight text-[#191919] sm:text-6xl lg:text-[64px]"
                 >
@@ -63,6 +63,7 @@ defineProps<Props>();
             <img
                 src="/assets/footer_layer_image.png"
                 alt="Keluarga Berjalan Sehat Menuju Perbukitan - CarePlate"
+                data-cta-art
                 class="pointer-events-none block h-auto w-full object-cover select-none"
                 loading="lazy"
             />
