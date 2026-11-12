@@ -116,6 +116,8 @@ jobs:
           username: ${{ secrets.VPS_USERNAME }}
           key: ${{ secrets.VPS_SSH_KEY }}
           port: ${{ secrets.VPS_PORT || 22 }}
+          command_timeout: 15m
+          timeout: 60s
           envs: ENV_B64,HAS_ENV
           script: |
             set -e
@@ -143,8 +145,22 @@ jobs:
             # Normalize image name to lowercase
             IMAGE_REPO=$(echo "ghcr.io/${{ github.repository }}" | tr '[:upper:]' '[:lower:]')
 
-            echo "Logging in to GitHub Container Registry on VPS..."
-            echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
+            echo "Logging in to GitHub Container Registry on VPS (with retry)..."
+            LOGIN_OK=false
+            for attempt in 1 2 3; do
+              if echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin; then
+                LOGIN_OK=true
+                echo "Docker login succeeded!"
+                break
+              else
+                echo "Docker login attempt $attempt failed, retrying in 5s..."
+                sleep 5
+              fi
+            done
+
+            if [ "$LOGIN_OK" != "true" ]; then
+              echo "Warning: docker login timed out or failed; attempting to pull directly..."
+            fi
 
             echo "Exporting image name..."
             export DOCKER_IMAGE="${IMAGE_REPO}:latest"
@@ -152,8 +168,23 @@ jobs:
             echo "Verifying docker-compose.yml..."
             ls -la docker-compose.yml
 
-            echo "Pulling latest Docker image..."
-            docker compose pull app
+            echo "Pulling latest Docker image (with retry)..."
+            PULL_OK=false
+            for attempt in 1 2 3; do
+              if docker compose pull app; then
+                PULL_OK=true
+                echo "Docker pull succeeded!"
+                break
+              else
+                echo "Docker pull attempt $attempt failed, retrying in 5s..."
+                sleep 5
+              fi
+            done
+
+            if [ "$PULL_OK" != "true" ]; then
+              echo "Error: Failed to pull image after 3 attempts."
+              exit 1
+            fi
 
             echo "Restarting containers..."
             docker compose up -d
