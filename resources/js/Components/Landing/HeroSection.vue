@@ -24,9 +24,14 @@ defineProps<Props>();
         <!-- 2. Decorative Sparkles & Dashed Paths matching Figma -->
         <!-- Green Sparkle Left -->
         <div
-            class="pointer-events-none absolute top-44 left-[10%] hidden text-[#0b8043] select-none lg:block"
+            data-hero-sparkle
+            class="pointer-events-none absolute top-[190px] left-[10.4%] hidden text-[#0b8043] select-none lg:block"
         >
-            <svg class="h-7 w-7" viewBox="0 0 24 24" fill="currentColor">
+            <svg
+                class="h-[18px] w-[18px]"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+            >
                 <path
                     d="M12 0L14.5 9.5L24 12L14.5 14.5L12 24L9.5 14.5L0 12L9.5 9.5L12 0Z"
                 />
@@ -35,7 +40,8 @@ defineProps<Props>();
 
         <!-- White Sparkle Top-Right -->
         <div
-            class="pointer-events-none absolute top-36 right-[11%] hidden text-white drop-shadow-xs select-none lg:block"
+            data-hero-sparkle
+            class="pointer-events-none absolute top-[160px] right-[7.9%] hidden text-white drop-shadow-xs select-none lg:block"
         >
             <svg class="h-9 w-9" viewBox="0 0 24 24" fill="currentColor">
                 <path
@@ -46,7 +52,8 @@ defineProps<Props>();
 
         <!-- Yellow Sparkle Left-Center with Dashed Path -->
         <div
-            class="pointer-events-none absolute top-[280px] left-[21%] hidden select-none lg:block"
+            data-hero-sparkle
+            class="pointer-events-none absolute top-[310px] left-[20.8%] hidden select-none lg:block"
         >
             <svg
                 class="mb-1 h-6 w-6 text-[#ffc933]"
@@ -70,60 +77,78 @@ defineProps<Props>();
             </svg>
         </div>
 
-        <!-- 3. Hero Copy Container -->
+        <!-- 3. Hero Copy (Figma 14.1 Hero Copy: 1100px column, 80px headline, family stack on the headline row) -->
         <div
             class="relative z-20 mx-auto max-w-[1440px] px-4 pt-8 pb-4 text-center sm:px-6 sm:pt-12 lg:px-8"
         >
-            <div class="mx-auto max-w-4xl">
-                <!-- Headline Line 1: Makan sehat sekeluarga, [Avatars] -->
+            <div
+                class="mx-auto flex max-w-[1100px] flex-col items-center gap-4 sm:gap-6"
+            >
+                <!-- Headline row 1: text, then the family stack on the same row (wraps below only when the screen is too narrow) -->
                 <div
-                    class="flex flex-wrap items-center justify-center gap-3 sm:gap-4"
+                    data-hero-line
+                    class="flex flex-wrap items-center justify-center gap-x-5 gap-y-3"
                 >
                     <span
-                        class="font-display text-4xl leading-tight font-bold tracking-tight text-[#191919] sm:text-6xl lg:text-[76px]"
+                        class="font-display text-[clamp(2.25rem,5.6vw,5rem)] leading-[1.1] font-semibold tracking-[-0.02em] text-ink"
                     >
                         Makan sehat sekeluarga,
                     </span>
 
-                    <!-- White Pill Avatar Stack [ BS RS RK DT ] -->
                     <div
-                        class="flex items-center gap-2 rounded-full border border-[#d6d3cc] bg-white px-3.5 py-1.5 shadow-xs sm:gap-2.5 sm:px-5 sm:py-2"
+                        class="flex items-center rounded-full bg-white p-1.5 sm:p-2"
+                        aria-hidden="true"
                     >
+                        <!-- Each avatar flips to a check in turn: the "who has logged" idea of Meja Keluarga. -->
                         <span
-                            class="flex h-7 w-7 items-center justify-center rounded-full bg-[#f4f3f0] text-xs font-bold text-[#191919] sm:h-8 sm:w-8 sm:text-sm"
-                            >BS</span
+                            v-for="(initials, index) in [
+                                'BS',
+                                'RS',
+                                'RK',
+                                'DT',
+                            ]"
+                            :key="initials"
+                            class="relative size-11 [perspective:600px] sm:size-16"
+                            :class="index < 3 ? '-mr-3 sm:-mr-4' : ''"
                         >
-                        <span
-                            class="flex h-7 w-7 items-center justify-center rounded-full bg-[#f4f3f0] text-xs font-bold text-[#191919] sm:h-8 sm:w-8 sm:text-sm"
-                            >RS</span
-                        >
-                        <span
-                            class="flex h-7 w-7 items-center justify-center rounded-full bg-[#f4f3f0] text-xs font-bold text-[#191919] sm:h-8 sm:w-8 sm:text-sm"
-                            >RK</span
-                        >
-                        <span
-                            class="flex h-7 w-7 items-center justify-center rounded-full bg-[#f4f3f0] text-xs font-bold text-[#191919] sm:h-8 sm:w-8 sm:text-sm"
-                            >DT</span
-                        >
+                            <span
+                                class="landing-flip absolute inset-0 [transform-style:preserve-3d]"
+                                :style="{ '--flip-delay': `${index * 0.7}s` }"
+                            >
+                                <span
+                                    class="absolute inset-0 flex items-center justify-center rounded-full border-[3px] border-white bg-primary-tint font-display text-base font-semibold tracking-[-0.01em] text-ink [backface-visibility:hidden] sm:text-2xl"
+                                >
+                                    {{ initials }}
+                                </span>
+                                <span
+                                    class="absolute inset-0 flex [transform:rotateY(180deg)] items-center justify-center rounded-full border-[3px] border-white bg-primary text-white [backface-visibility:hidden]"
+                                >
+                                    <Check
+                                        class="size-5 stroke-[3] sm:size-7"
+                                    />
+                                </span>
+                            </span>
+                        </span>
                     </div>
                 </div>
 
-                <!-- Headline Line 2: mulai dari [ satu meja. ] -->
+                <!-- Headline row 2: mulai dari [ satu meja. ] -->
                 <div
-                    class="mt-2 flex flex-wrap items-center justify-center gap-3 sm:mt-3 sm:gap-4"
+                    data-hero-line
+                    class="flex flex-wrap items-center justify-center gap-4"
                 >
                     <span
-                        class="font-display text-4xl leading-tight font-bold tracking-tight text-[#191919] sm:text-6xl lg:text-[76px]"
+                        class="font-display text-[clamp(2.25rem,5.6vw,5rem)] leading-[1.1] font-semibold tracking-[-0.02em] text-ink"
                     >
                         mulai dari
                     </span>
 
-                    <!-- Large Outlined Pill -->
                     <div
-                        class="inline-flex items-center rounded-full border-[2.5px] border-[#191919] bg-[#bae7cf]/60 px-6 py-1 shadow-xs backdrop-blur-xs sm:px-10 sm:py-2"
+                        data-hero-pill
+                        class="inline-flex items-center rounded-full border-[3px] border-ink px-6 pt-1 pb-2 sm:px-8"
                     >
                         <span
-                            class="font-display text-4xl leading-none font-bold tracking-tight text-[#0b8043] sm:text-6xl lg:text-[76px]"
+                            class="font-display text-[clamp(2.25rem,5.6vw,5rem)] leading-[1.1] font-semibold tracking-[-0.02em] text-primary-deep"
                         >
                             satu meja.
                         </span>
@@ -147,7 +172,8 @@ defineProps<Props>();
 
                 <!-- Subtitle -->
                 <p
-                    class="mx-auto mt-6 max-w-2xl text-sm leading-relaxed font-medium text-[#191919] sm:text-base lg:text-lg"
+                    data-hero-support
+                    class="max-w-[640px] text-base leading-7 font-medium text-ink sm:text-lg"
                 >
                     Untuk orang tua yang mengatur menu rumah. Catat makan,
                     pindai label, dan lihat siapa yang sudah mencatat minggu
@@ -156,12 +182,13 @@ defineProps<Props>();
 
                 <!-- Action Buttons -->
                 <div
-                    class="mt-7 flex flex-wrap items-center justify-center gap-3.5"
+                    data-hero-support
+                    class="flex flex-wrap items-center justify-center gap-3"
                 >
                     <template v-if="user">
                         <Link
                             :href="route('dashboard')"
-                            class="rounded-full bg-[#0b8043] px-7 py-3 text-sm font-bold text-white shadow-sm transition-all hover:scale-105 hover:bg-[#086637] hover:shadow sm:text-base"
+                            class="inline-flex h-11 items-center justify-center rounded-full bg-primary px-5 text-sm font-bold text-white transition-colors hover:bg-primary-deep"
                         >
                             Buka Dashboard
                         </Link>
@@ -169,13 +196,13 @@ defineProps<Props>();
                     <template v-else>
                         <Link
                             :href="route('register')"
-                            class="rounded-full bg-[#0b8043] px-7 py-3 text-sm font-bold text-white shadow-sm transition-all hover:scale-105 hover:bg-[#086637] hover:shadow sm:text-base"
+                            class="inline-flex h-11 items-center justify-center rounded-full bg-primary px-5 text-sm font-bold text-white transition-colors hover:bg-primary-deep"
                         >
                             Buat Akun Keluarga
                         </Link>
                         <a
                             href="#kebiasaan"
-                            class="rounded-full border border-[#191919] bg-white px-7 py-3 text-sm font-bold text-[#191919] shadow-xs transition-all hover:bg-[#f4f3f0] sm:text-base"
+                            class="inline-flex h-11 items-center justify-center rounded-full border-[1.5px] border-ink bg-white px-5 text-sm font-bold text-ink transition-colors hover:bg-tile"
                         >
                             Lihat cara kerja
                         </a>
@@ -193,6 +220,7 @@ defineProps<Props>();
                 <div class="relative h-24 sm:h-32">
                     <!-- Floating Sticker Left: Sarapan Tercatat -->
                     <div
+                        data-hero-sticker
                         class="pointer-events-auto absolute top-2 left-0 hidden max-w-[260px] -rotate-1 transform items-center gap-3.5 rounded-2xl border border-white bg-white/95 px-4 py-3 shadow-xl backdrop-blur-sm transition-transform hover:rotate-0 md:flex lg:top-6"
                     >
                         <!-- Donut Progress 25% (1 dari 4) -->
@@ -235,6 +263,7 @@ defineProps<Props>();
 
                     <!-- Floating Sticker Right: 4 dari 4 sudah mencatat -->
                     <div
+                        data-hero-sticker
                         class="pointer-events-auto absolute top-1 right-0 hidden min-w-[240px] rotate-1 transform flex-col gap-2 rounded-2xl border border-white bg-white/95 p-4 shadow-xl backdrop-blur-sm transition-transform hover:rotate-0 md:flex lg:top-4"
                     >
                         <!-- Avatars Top Row -->
@@ -283,6 +312,7 @@ defineProps<Props>();
                 <img
                     src="/assets/Ilustrasi Meja Keluarga.png"
                     alt="Ilustrasi Makan Sehat Sekeluarga di Meja - CarePlate"
+                    data-hero-art
                     class="pointer-events-none block h-auto w-full object-cover select-none"
                     loading="eager"
                 />

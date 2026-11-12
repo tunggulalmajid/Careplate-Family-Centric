@@ -13,10 +13,16 @@ interface Props {
 defineProps<Props>();
 
 const mobileMenuOpen = ref(false);
+const menuButton = ref<HTMLButtonElement | null>(null);
+const closeMenu = () => {
+    if (!mobileMenuOpen.value) return;
+    mobileMenuOpen.value = false;
+    menuButton.value?.focus();
+};
 </script>
 
 <template>
-    <header class="sticky top-0 z-50 w-full transition-all duration-300">
+    <header class="sticky top-0 z-50 w-full" @keydown.esc="closeMenu">
         <div class="mx-auto max-w-[1440px] px-4 pt-4 sm:px-6 lg:px-8">
             <nav
                 class="flex items-center justify-between rounded-4xl border border-[#eceae5] bg-white/90 px-6 py-3 shadow-sm backdrop-blur-md"
@@ -78,9 +84,14 @@ const mobileMenuOpen = ref(false);
                 <!-- Mobile Menu Hamburger -->
                 <div class="flex items-center md:hidden">
                     <button
+                        ref="menuButton"
                         @click="mobileMenuOpen = !mobileMenuOpen"
-                        class="p-2 text-[#5e5e5e] hover:text-[#191919] focus:outline-none"
-                        aria-label="Toggle Navigation"
+                        class="flex h-11 w-11 items-center justify-center text-[#5e5e5e] hover:text-[#191919]"
+                        :aria-expanded="mobileMenuOpen"
+                        aria-controls="landing-mobile-menu"
+                        :aria-label="
+                            mobileMenuOpen ? 'Tutup navigasi' : 'Buka navigasi'
+                        "
                     >
                         <Menu v-if="!mobileMenuOpen" class="h-6 w-6" />
                         <X v-else class="h-6 w-6" />
@@ -89,16 +100,10 @@ const mobileMenuOpen = ref(false);
             </nav>
 
             <!-- Mobile Drawer -->
-            <transition
-                enter-active-class="transition duration-200 ease-out"
-                enter-from-class="transform -translate-y-4 opacity-0"
-                enter-to-class="transform translate-y-0 opacity-100"
-                leave-active-class="transition duration-150 ease-in"
-                leave-from-class="transform translate-y-0 opacity-100"
-                leave-to-class="transform -translate-y-4 opacity-0"
-            >
+            <Transition name="landing-menu">
                 <div
                     v-if="mobileMenuOpen"
+                    id="landing-mobile-menu"
                     class="mt-2 space-y-4 rounded-2xl border border-[#eceae5] bg-white p-5 shadow-lg md:hidden"
                 >
                     <div class="flex flex-col space-y-2">
@@ -141,7 +146,7 @@ const mobileMenuOpen = ref(false);
                         </template>
                     </div>
                 </div>
-            </transition>
+            </Transition>
         </div>
     </header>
 </template>
