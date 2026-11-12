@@ -38,7 +38,9 @@ COPY . .
 RUN composer dump-autoload --optimize --no-dev
 
 # Build Vite & Inertia assets
-RUN npm run build
+RUN npm run build \
+    && rm -rf node_modules \
+    && rm -rf tests
 
 # ==============================================================================
 # Stage 2: Production Runtime
@@ -77,12 +79,8 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 
 WORKDIR /var/www/html
 
-# Copy application from builder stage
+# Copy application from builder stage (already cleaned up of dev artifacts)
 COPY --from=builder /var/www/html /var/www/html
-
-# Clean up dev artifacts
-RUN rm -rf /var/www/html/node_modules \
-    && rm -rf /var/www/html/tests
 
 # Copy configuration files
 COPY docker/nginx/default.conf /etc/nginx/sites-available/default

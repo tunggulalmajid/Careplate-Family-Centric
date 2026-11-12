@@ -116,7 +116,7 @@ jobs:
           username: ${{ secrets.VPS_USERNAME }}
           key: ${{ secrets.VPS_SSH_KEY }}
           port: ${{ secrets.VPS_PORT || 22 }}
-          command_timeout: 15m
+          command_timeout: 30m
           timeout: 60s
           envs: ENV_B64,HAS_ENV
           script: |
@@ -168,10 +168,10 @@ jobs:
             echo "Verifying docker-compose.yml..."
             ls -la docker-compose.yml
 
-            echo "Pulling latest Docker image (with retry)..."
+            echo "Pulling latest Docker image directly (with retry)..."
             PULL_OK=false
             for attempt in 1 2 3; do
-              if docker compose pull app; then
+              if docker pull "$DOCKER_IMAGE"; then
                 PULL_OK=true
                 echo "Docker pull succeeded!"
                 break
